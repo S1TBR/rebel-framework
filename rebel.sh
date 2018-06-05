@@ -40,7 +40,6 @@ print_modules(){
    echo -e "$red   ├ $green net/sniff       ${red}➤       ${white}Unencrypted traffic network sniffer and modifier."
    echo -e "$red   ├ $green net/sslsniff    ${red}➤       ${white}Sslstrip and sniff traffic."
    echo -e "$red   ├ $green net/cut         ${red}➤       ${white}Cut connection bettwen two points or more."
-   echo -e "$red   ├ $green net/jsi         ${red}➤       ${white}"
    echo -e "$red   └"
    echo ""
 }
@@ -291,9 +290,9 @@ net(){
         elif [[ $cmd1 == 'run' ]] ; then
            options=""
            if [[ ${1} == "net/sniff" ]] ; then
-               vars=$(echo "--no-check=$check --driftnet=$driftnet --urlsnarf=$urlsnarf --silent=$silnet --tshark=$tshark --ettercap=$ettercap --tcpdump=$tcpdump --tskark+=$tsharkX --burp=$burp --dnsspoof=$dnsspoofison")
+               vars=$(echo "--no-check=$check -d=$driftnet --urlsnarf=$urlsnarf --silent=$silnet --tshark=$tshark --ettercap=$ettercap --tcpdump=$tcpdump --tskark+=$tsharkX --burp=$burp --dnsspoof=$dnsspoofison")
            else
-               vars=$(echo "--no-check=$check --driftnet=$driftnet --urlsnarf=$urlsnarf --silent=$silnet --tshark=$tshark --ettercap=$ettercap --tcpdump=$tcpdump --tskark+=$tsharkX")
+               vars=$(echo "--no-check=$check -d=$driftnet --urlsnarf=$urlsnarf --silent=$silnet --tshark=$tshark --ettercap=$ettercap --tcpdump=$tcpdump --tskark+=$tsharkX")
            fi    
            counter=1
            for i in $(seq 1 11) ; do
@@ -316,101 +315,6 @@ net(){
             cd .. ; break
         fi
     ######################################################################################
-    elif [[ ${1} == "net/jsi" ]] ; then
-        echo -en "${grayterm}{REBEL}➤[${white}net/jsi]~#${normal} " ; read cmd1 cmd2 cmd3 cmd4 cmd5 cmd6 cmd7 cmd8
-        if [[ $cmd1 == "show" ]] && [[ $cmd2 == "options" ]] ; then
-           echo '  Option                                   Value'
-           echo '  ======                                   ====='
-           echo -e "  target                                   $target"
-           echo -e "  interface                                $interface"
-           echo -e "  gateway                                  $gateway "
-           echo -e "  no-check                                 $check\t[Check if targets are reachable]"
-           echo -e "  driftnet                                 $driftnet\t[enable driftnet to extract images from session pcap file]"
-           echo -e "  urlsnarf                                 $urlsnarf\t[log GET/POST requests with urlsnarf]"
-           echo -e "  silent                                   $silnet\t[run arpspoof and dns2proxy in background]"
-           echo -e "  tshark                                   $tshark\t[capture detailed post requests info with tshark]"
-           echo -e "  ettercap                                 $ettercap\t[capture post requests with ettercap]"
-           echo -e "  tcpdump                                  $tcpdump\t[capture post requests with TCPdump]"
-           echo -e "  tsharkX                                  $tsharkX\t[capture GET/POST requests headers with tshark]"
-           echo -e "  jsfile                                   $jsfile\t[inject JS code from JS file (must be one line)] "
-           echo -e "  jsurl                                    $jsurl\t[inject JS url in page content]                  "
-           echo -e "  jskeylog                                 $jskeylog\t[inject JS keylogger]                            "
-
-        elif [[ $cmd1 == "set" ]] ; then
-           if [[ $cmd2 == 'target' ]] ; then
-              target=$cmd3
-           elif [[ $cmd2 == "gateway" ]] ; then
-               gateway=$cmd3
-           elif [[ $cmd2 == 'interface' ]] ; then
-              interface=$cmd3
-           elif [[ $cmd2 == 'no-check' ]] ; then
-              check=$cmd3
-           elif [[ $cmd2 == "driftnet" ]] ; then
-              driftnet=$cmd3
-           elif [[ $cmd2 == "urlsnarf" ]] ; then
-              urlsnarf=$cmd3
-           elif [[ $cmd2 == "tshark" ]] ; then
-              tshark=$cmd3
-           elif [[ $cmd2 == "silent" ]] ; then
-              silnet=$cmd3
-           elif [[ $cmd2 == "ettercap" ]] ; then
-              ettercap=$cmd3
-           elif [[ $cmd2 == "tcpdump" ]] ; then
-              tcpdump=$cmd3
-           elif [[ $cmd2 == "tsharkX" ]] || [[ $cmd2 == "tsharkx" ]] ; then
-              tsharkX=$cmd3
-           elif [[ $cmd2 == "jsurl" ]] ; then
-               jsurl=$cmd3
-               if [[ $cmd3 != "off" ]] ; then
-                  jsfile="off"
-                  jsfileison="off"
-                  jsurlison="on"
-                  jskeylog="off"
-               fi
-           elif [[ $cmd2 == "jsfile" ]] ; then
-               jsfile=$cmd3
-               if [[ $cmd3 != "off" ]] ; then
-                  jsurl="off"
-                  jskeylog="off"
-                  jsfileison="on"
-                  jsurlison="off"
-               fi
-           elif [[ $cmd2 == "jskeylog" ]] ; then
-               jskeylog=$cmd3
-               if [[ $cmd3 != "off" ]] ; then
-                  jsurl="off"
-                  jsurlison="off"
-                  jsfile="off"
-                  jsfileison="off"
-                  jskeylog="on"
-
-               fi
-           fi
-        elif [[ $cmd1 == 'run' ]] ; then
-            options=""      
-            vars=$(echo "--no-check=$check --driftnet=$driftnet --urlsnarf=$urlsnarf --silent=$silnet --tshark=$tshark --ettercap=$ettercap --tcpdump=$tcpdump --tskark+=$tsharkX --js-url=$jsurlison --js-code=$jsfileison --js-keylogger=$jskeylog ")
-            counter=1
-            for i in $(seq 1 11) ; do
-              if [[ $( echo $vars | tr ' ' '\n' | awk NR==${counter} | cut -d "=" -f 2 ) == "on" ]] ; then
-                options="$options $( echo $vars | tr ' ' '\n' | awk NR==${counter} | cut -d '=' -f 1 )"
-              fi
-              let counter+=1
-            done
-            options=$( echo $options | tr '\n' ' ' )
-            # make it possiable to do more than one enjection at the same session
-            if [[ $jskeylog != "off" ]] ; then
-                final_arg=$jskeylog
-            elif [[ $jsfile != "off" ]]; then
-                final_arg=$jsfile
-            elif [[ $jsurl != "off" ]]; then
-                final_arg=$jsurl
-            fi    
-            ./main.sh ./tornado.sh -i $interface -t $target -g $gateway $options $final_arg
-
-        elif [[ $cmd1 == "back" ]] || [[ $cmd1 == "exit" ]] || [[ $cmd1 == "quit" ]] ; then
-           cd .. ; break
-        fi
-
     fi
   done
 }

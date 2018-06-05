@@ -1,10 +1,11 @@
 #!/bin/bash
 
-if ! [[ $( whoami ) = "root" ]] ; then
+if [[ $( whoami ) != "root" ]] ; then
    echo "[X] need root access"
    exit
 fi
-sudo apt-get update
+
+#sudo apt-get update
 lan_module_setup(){
    cd modules/net/
    apt-get install dsniff etherape nmap ettercap-graphical iptraf-ng driftnet tshark tcpdump sslstrip -y
@@ -14,10 +15,10 @@ lan_module_setup(){
    git clone https://github.com/byt3bl33d3r/sslstrip2
    cd sslstrip2
    python setup.py install
+   cd ..
    chmod +x respoof.sh main.sh
 }
 
 lan_module_setup
-
 
 cd .. ; reset ; python print_banner.py
