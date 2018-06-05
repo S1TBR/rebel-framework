@@ -1,0 +1,20 @@
+
+[1metterfilter 0.8.2[0m copyright 2001-2015 Ettercap Development Team
+
+
+ 14 protocol tables loaded:
+	DECODED DATA udp tcp esp gre icmp ipv6 ip arp wifi fddi tr eth 
+
+ 13 constants loaded:
+	VRRP OSPF GRE UDP TCP ESP ICMP6 ICMP PPTP PPPOE IP6 IP ARP 
+
+ Parsing source file 'mod.filter'  done.
+
+ Unfolding the meta-tree  done.
+
+ Converting labels to real offsets  done.
+
+ Writing output to 'mod.ef'  done.
+
+ -> Script encoded into 15 instructions.
+
