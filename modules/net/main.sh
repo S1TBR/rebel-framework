@@ -415,7 +415,7 @@ while true ; do
        fi
        if [[ $driftnet == "on" ]] || [[ $driftnet == "ON" ]] ; then
           echo -e "$blue█ Extracting photos from pcap file with drifnet"
-          timeout 60 driftnet -f tshark.pcap -a -d . 2> /dev/null 1> /dev/null
+          timeout 30 driftnet -f tshark.pcap -a -d . 2> /dev/null 1> /dev/null
        fi
        exit
     fi
