@@ -40,6 +40,15 @@ print_modules(){
    echo -e "$red   ├ $green net/sniff       ${red}➤       ${white}Unencrypted traffic network sniffer and modifier."
    echo -e "$red   ├ $green net/sslsniff    ${red}➤       ${white}Sslstrip and sniff traffic."
    echo -e "$red   ├ $green net/cut         ${red}➤       ${white}Cut connection bettwen two points or more."
+   echo -e "$red   ├"
+   echo -e "$red   ├ $green info/site       ${red}➤       ${white}Website Information"
+   echo -e "$red   ├ $green info/phone      ${red}➤       ${white}Phone Number Information"
+   echo -e "$red   ├ $green info/server     ${red}➤       ${white}Find IP Address And E-mail Server"
+   echo -e "$red   ├ $green info/whois      ${red}➤       ${white}Domain Whois Lookup"
+   echo -e "$red   ├ $green info/loc        ${red}➤       ${white}Find Website/IP Address Location"
+   echo -e "$red   ├ $green info/bcf        ${red}➤       ${white}Bypass CloudFlare"
+   echo -e "$red   ├ $green info/subdomain  ${red}➤       ${white}Subdomain Scanner"
+   echo -e "$red   ├ $green info/email      ${red}➤       ${white}Check E-mail Address"                              
    echo -e "$red   └"
    echo ""
 }
@@ -69,7 +78,11 @@ rebel_console(){
          cd net
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ..
-      else
+      elif [[ $2 =~ 'info' ]] ; then
+         cd info
+         bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+         cd ..
+      else   
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
    elif [[ $1 == "show" ]] ; then

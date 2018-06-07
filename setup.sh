@@ -5,8 +5,8 @@ if [[ $( whoami ) != "root" ]] ; then
    exit
 fi
 
-#sudo apt-get update
-lan_module_setup(){
+sudo apt-get update
+net_setup(){
    cd modules/net/
    apt-get install dsniff etherape nmap ettercap-graphical iptraf-ng driftnet tshark tcpdump sslstrip -y
    apt-get install debhelper cmake bison flex libgtk2.0-dev libltdl3-dev libncurses-dev libncurses5-dev libpcap-dev libpcre3-dev libssl-dev libcurl4-openssl-dev ghostscript -y
@@ -17,8 +17,20 @@ lan_module_setup(){
    python setup.py install
    cd ..
    chmod +x respoof.sh main.sh
+   cd ..
 }
 
-lan_module_setup
+web_setup(){
+   cd modules/web
 
+}
+info_setup(){
+   sudo apt-get install -y perl
+   cpan install JSON
+
+}
+
+
+net_setup
+info_setup
 cd .. ; reset ; python print_banner.py
