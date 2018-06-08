@@ -50,7 +50,13 @@ print_modules(){
    echo -e "$red   ├ $green info/subdomain  ${red}➤       ${white}Subdomain scanner"
    echo -e "$red   ├ $green info/email      ${red}➤       ${white}Check e-mail address"     
    echo -e "$red   ├"
-   echo -e "$red   ├ $green web/dirscan     ${red}➤       ${white}Scan for hidden web directories"     
+   echo -e "$red   ├ $green web/dirscan     ${red}➤       ${white}Scan for hidden web directories"    
+   echo -e "$red   ├"
+   echo -e "$red   ├ $green com/chat        ${red}➤       ${white}create or join an existing chatroom"
+   echo -e "$red   ├ $green com/qrshare     ${red}➤       ${white}Send files using qr codes"      
+   echo -e "$red   ├"   
+   echo -e "$red   ├ $green torrent/search  ${red}➤       ${white}Search for torrents ans get thier info"
+   echo -e "$red   ├ $green torrent/get     ${red}➤       ${white}Download torrents using command line"
    echo -e "$red   └"
    echo ""
 }
@@ -87,8 +93,16 @@ rebel_console(){
       elif [[ $2 =~ 'web' ]] ; then
          cd web
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd .. 
-      else   
+         cd ..
+      elif [[ $2 =~ 'torrent' ]] ; then
+         cd torrent
+         bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+         cd ..
+     elif [[ $2 =~ 'com' ]] ; then
+         cd com
+         bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+         cd ..
+      else
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
    elif [[ $1 == "show" ]] ; then
