@@ -57,6 +57,10 @@ print_modules(){
    echo -e "$red   ├"   
    echo -e "$red   ├ $green torrent/search  ${red}➤       ${white}Search for torrents ans get thier info"
    echo -e "$red   ├ $green torrent/get     ${red}➤       ${white}Download torrents using command line"
+   echo -e "$red   ├"   
+   echo -e "$red   ├ $green crypto/rot      ${red}➤       ${white}Rot1..25 decoder"
+   echo -e "$red   ├ $green crypto/auto     ${red}➤       ${white}Detect and decode encoded strings & crack hashes"
+   echo -e "$red   ├ $green crypto/mdr1     ${red}➤       ${white}Encode/decode strings using our own Encoding algorithm"   
    echo -e "$red   └"
    echo ""
 }
@@ -102,6 +106,10 @@ rebel_console(){
          cd com
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ..
+     elif [[ $2 =~ 'crypto' ]] ; then
+         cd crypto
+         bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+         cd ..         
       else
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
@@ -125,7 +133,7 @@ rebel_console(){
    elif [[ $1 == "clear" ]] ; then
        reset
    elif [[ $1 == '!' ]] && [[ $( which $2 ) != "" ]] ; then
-       $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+       bash -c "$2 $3 $4 $5 $6 $7 $8 $9 ${10}"
    else
       echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
    fi
