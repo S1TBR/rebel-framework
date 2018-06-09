@@ -1,6 +1,5 @@
 #!/bin/bash
 cd modules
-
 # banner section
 ###################
 normal='\e[0m'
@@ -30,61 +29,7 @@ fi
 ##############################################
 echo -e "${arr[0]}"
 
-print_modules(){
-   echo -e "$red   ┬               ${yellow}Mod${red}ules"
-   echo -e "$red   ├ "
-   echo -e "$red   ├ $green net/iface       ${red}➤       ${white}Interface info."
-   echo -e "$red   ├ $green net/map         ${red}➤       ${white}Hosts live Scan in LAN."
-   echo -e "$red   ├ $green net/scan        ${red}➤       ${white}Scan [Ports, OS, Etc] IP."
-   echo -e "$red   ├ $green net/vuln        ${red}➤       ${white}Scan for common vulnerabilities."
-   echo -e "$red   ├ $green net/sniff       ${red}➤       ${white}Unencrypted traffic network sniffer and modifier."
-   echo -e "$red   ├ $green net/sslsniff    ${red}➤       ${white}Sslstrip and sniff traffic."
-   echo -e "$red   ├ $green net/cut         ${red}➤       ${white}Cut connection bettwen two points or more."
-   echo -e "$red   ├"
-   echo -e "$red   ├ $green info/site       ${red}➤       ${white}Website information"
-   echo -e "$red   ├ $green info/phone      ${red}➤       ${white}Phone number onformation"
-   echo -e "$red   ├ $green info/server     ${red}➤       ${white}Find IP Address And E-mail Server"
-   echo -e "$red   ├ $green info/whois      ${red}➤       ${white}Domain whois lookup"
-   echo -e "$red   ├ $green info/loc        ${red}➤       ${white}Find website/IP address location"
-   echo -e "$red   ├ $green info/bcf        ${red}➤       ${white}Bypass cloudFlare"
-   echo -e "$red   ├ $green info/subdomain  ${red}➤       ${white}Subdomain scanner"
-   echo -e "$red   ├ $green info/email      ${red}➤       ${white}Check e-mail address"     
-   echo -e "$red   ├"
-   echo -e "$red   ├ $green web/dirscan     ${red}➤       ${white}Scan for hidden web directories"    
-   echo -e "$red   ├"
-   echo -e "$red   ├ $green com/chat        ${red}➤       ${white}create or join an existing chatroom"
-   echo -e "$red   ├ $green com/qrshare     ${red}➤       ${white}Send files using qr codes"      
-   echo -e "$red   ├"   
-   echo -e "$red   ├ $green torrent/search  ${red}➤       ${white}Search for torrents ans get thier info"
-   echo -e "$red   ├ $green torrent/get     ${red}➤       ${white}Download torrents using command line"
-   echo -e "$red   ├"   
-   echo -e "$red   ├ $green crypto/rot      ${red}➤       ${white}Rot1..25 decoder"
-   echo -e "$red   ├ $green crypto/auto     ${red}➤       ${white}Detect and decode encoded strings & crack hashes"
-   echo -e "$red   ├ $green crypto/mdr1     ${red}➤       ${white}Encode/decode strings using our own Encoding algorithm"   
-   echo -e "$red   └"
-   echo ""
-}
-print_help(){
-   echo -e "$red   ┬                  ${yellow}H${red}elp"
-   echo -e "$red   ├ "
-   echo -e "$red   ├ $green show modules     ${red}➤     ${white}List all available modules"
-   echo -e "$red   ├ $green use + <module>   ${red}➤     ${white}Use module"
-   echo -e "$red   ├ $green show options     ${red}➤     ${white}Show module options"
-   echo -e "$red   ├ $green banner           ${red}➤     ${white}Display an awesome rebel banner"
-   echo -e "$red   ├ $green set              ${red}➤     ${white}Set a value to an option"
-   echo -e "$red   ├ $green run              ${red}➤     ${white}Run module"
-   echo -e "$red   ├ $green clear            ${red}➤     ${white}Clear screen"
-   echo -e "$red   ├ $green back             ${red}➤     ${white}Back to the main"
-   echo -e "$red   ├ $green exit - quit      ${red}➤     ${white}Exit from rebel"
-   echo -e "$red   ├ $green ! <cmd(s)>       ${red}➤     ${white}Execute shell commands"
-   echo -e "$red   ├ $green help - ?         ${red}➤     ${white}Show this message"
-   echo -e "$red   └"
-   echo ""
-
-}
-
 rebel_console(){
-
    if [[ $1 == 'use' ]] ; then
       if [[ $2 =~ 'net' ]] ; then
          cd net
@@ -115,14 +60,14 @@ rebel_console(){
       fi
    elif [[ $1 == "show" ]] ; then
       if [[ $2 == "modules" ]] ; then
-          print_modules
+          bash print_help_modules.sh modules
       elif [[ $2 == "help" ]] ; then
-          print_help
+          bash print_help_modules.sh help
       else
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
    elif [[ $1 == "help" ]] || [[ $1 == "?" ]] ; then
-       print_help
+       bash print_help_modules help 
    elif [[ $1 == 'quit' ]] || [[ $1 == 'exit' ]] ; then
        exit 0
    elif [[ $1 == "banner" ]] ; then
@@ -130,19 +75,20 @@ rebel_console(){
        color="${arr[$rand]}" # select random color
        echo -e $color
        python print_banner.py
-   elif [[ $1 == "clear" ]] ; then
+   elif [[ $1 == "clear" ]] || [[ $1 == "reset" ]] ; then
        reset
    elif [[ $1 == '!' ]] && [[ $( which $2 ) != "" ]] ; then
        bash -c "$2 $3 $4 $5 $6 $7 $8 $9 ${10}"
+   elif [[ $1 == "" ]] ; then
+        :        
    else
       echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
    fi
 }
 
-while true ; do
-   echo -e "$white"
-   echo -en "${grayterm}{REBEL}➤~#${normal} " ; read option arg1 arg2 arg3 arg4 arg5 arg6 arg7 arg8 arg9 arg10
-   rebel_console $option $arg1 $arg2 $arg3 $arg4 $arg5 $arg6 $arg7 $arg8 $arg9 $arg10
+while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤~#${normal} ) " option; do
+   history -s "$option"
+   rebel_console $option
 done
 # list ==
 # tornado
