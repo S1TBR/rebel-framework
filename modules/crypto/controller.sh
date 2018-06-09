@@ -12,8 +12,11 @@ grayterm='\e[1;40m'
 rot="all"
 mode="encode"
 
+hash="-a"
+files="off"
+
 module=$(echo $1 | cut -d '/' -f 2 )
-if [[ $module != "rot" ]] && [[ $module != "mdr1" ]] && [[ $module != "auto" ]] ; then
+if [[ $module != "rot" ]] && [[ $module != "mdr1" ]] && [[ $module != "auto" ]] && [[ $module != "find" ]] ; then
    echo -e "${red}[x] Wrong module name"
    exit
 fi   
@@ -41,7 +44,10 @@ misc(){
 
 if [[ $1 == "crypto/rot" ]] ; then
    target="ifmmp gsjfoe"
-else
+elif [[ $1 == "crypto/find" ]] ; then
+   target="example.txt"
+   mode="all"
+else   
    target="68656c6c6f20667269656e64"
 fi
 
@@ -51,10 +57,12 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
     if [[ ${1} == 'crypto/rot' ]] ; then
     	  if [[ $( echo $cmd1 | cut -d " " -f 1 ) == "show" ]] ; then
            if [[ $( echo $cmd1 | cut -d " " -f 2 ) == "options" ]] ; then
-              echo '  Option                                   Value'
-	            echo '  ======                                   ====='
-	            echo "  target                                   $target"
-	            echo -e "  rot                                      $rot\t[all/(1..25)]"
+              {
+              echo -e "  Option\t\t\t\t|Value"
+              echo -e "  ======\t\t\t\t|====="
+              echo -e "  target\t\t\t\t|$target"
+              echo -e "  mode\t\t\t\t|$rot|[all/(1..25)]"
+              } | column -t -s "|"                 
            elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "modules" ]] ; then
               bash ../print_help_modules.sh modules
            elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "help" ]] ; then
@@ -78,9 +86,11 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
     elif [[ ${1} =~ 'crypto/auto' ]] ; then
         if [[ $( echo $cmd1 | cut -d " " -f 1 ) == "show" ]] ; then
            if [[ $( echo $cmd1 | cut -d " " -f 2 ) == "options" ]] ; then
-              echo '  Option                                   Value'
-	            echo '  ======                                   ====='
-	            echo "  target                                   $target"
+              {
+              echo -e "  Option\t\t\t\t|Value"
+              echo -e "  ======\t\t\t\t|====="
+              echo -e "  target\t\t\t\t|$target"
+              } | column -t -s "|"   
            elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "modules" ]] ; then
               bash ../print_help_modules.sh modules
            elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "help" ]] ; then
@@ -102,10 +112,12 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
     elif [[ ${1} == 'crypto/mdr1' ]] ; then
         if [[ $( echo $cmd1 | cut -d " " -f 1 ) == "show" ]] ; then
            if [[ $( echo $cmd1 | cut -d " " -f 2 ) == "options" ]] ; then
-              echo '  Option                                   Value'
-	            echo '  ======                                   ====='
-	            echo -e "  target                                   $target"
-	            echo -e "  mode                                     $mode\t(encode/decode)"
+              {
+              echo -e "  Option\t\t\t\t|Value"
+              echo -e "  ======\t\t\t\t|====="
+              echo -e "  target\t\t\t\t|$target"
+              echo -e "  mode\t\t\t\t|$mode|(encode/decode)"
+              } | column -t -s "|"              
            elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "modules" ]] ; then
               bash ../print_help_modules.sh modules
            elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "help" ]] ; then
@@ -131,6 +143,47 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
            $( echo $cmd1 | cut -d " " -f 2- )
         else
            misc $cmd1
-        fi                  
+        fi
+    elif [[ ${1} == 'crypto/find' ]] ; then
+        if [[ $( echo $cmd1 | cut -d " " -f 1 ) == "show" ]] ; then
+           if [[ $( echo $cmd1 | cut -d " " -f 2 ) == "options" ]] ; then
+              {
+              echo -e "  Option\t\t\t\t|Value"
+              echo -e "  ======\t\t\t\t|====="
+              echo -e "  target\t\t\t\t|$target|[filename(for single files)/foldername(for recursive searching)]"
+              echo -e "  mode\t\t\t\t|$mode|(all/md2/md4/md5/LM/NT/NTLM/sha1/sha224/sha256/7z/winzip/rar5/sha512/shadow/jom)"
+              } | column -t -s "|"
+           elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "modules" ]] ; then
+              bash ../print_help_modules.sh modules
+           elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "help" ]] ; then
+              bash ../print_help_modules.sh help
+           fi               
+        elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'set' ]] ; then
+           if [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'target' ]] ; then
+               target=$( echo $cmd1 | cut -d " " -f 3- | sed "s/'//g" )
+               if [[ -d $target ]] ; then
+                   files="-r"
+               elif [[ -f $target ]] ; then
+                   files=""
+               else
+                  echo -e "${red}[x] file/folder couldn't be found"       
+               fi
+           elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "mode" ]] ; then
+               mode=$( echo $cmd1 | cut -d " " -f 3- )
+               if [[ $mode == "all" ]] ; then
+                  hash="-a"
+               else  
+                  hash="$mode" 
+               fi    
+           fi   
+        elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == "run" ]] ; then
+           bash find.sh $target $files $hash   
+        elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == "back" ]] || [[ $( echo $cmd1 | cut -d " " -f 1 ) == "exit" ]] || [[ $( echo $cmd1 | cut -d " " -f 1 ) == "quit" ]] ; then
+           cd .. ; break
+        elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == '!' ]] ; then
+           $( echo $cmd1 | cut -d " " -f 2- )
+        else
+           misc $cmd1
+        fi                                            
     fi
 done
