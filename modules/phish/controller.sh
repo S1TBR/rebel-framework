@@ -59,7 +59,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
            echo -e "4" | python main.py 
        elif [[ $module == "wp" ]] ; then
            echo -e "6" | python main.py 
-       elif [[ $module == "twiiter" ]] ; then
+       elif [[ $module == "twitter" ]] ; then
            echo -e "7" | python main.py 
        fi
     else
