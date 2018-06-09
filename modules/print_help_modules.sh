@@ -41,6 +41,7 @@ print_modules(){
    echo -e "$red   ├ $green crypto/rot            ${red}➤       ${white}Rot1..25 decoder"
    echo -e "$red   ├ $green crypto/auto           ${red}➤       ${white}Detect and decode encoded strings & crack hashes"
    echo -e "$red   ├ $green crypto/mdr1           ${red}➤       ${white}Encode/decode strings using our own Encoding algorithm"   
+   echo -e "$red   ├ $green crypto/find           ${red}➤       ${white}Find hashes inside files [md5,sha256,sha512crypt,etc..]"      
    echo -e "$red   ├"  
    echo -e "$red   ├ $green phish/fb              ${red}➤       ${white}Facebook phishing using ngrok."    
    echo -e "$red   ├ $green phish/google          ${red}➤       ${white}Google phishing using ngrok." 
