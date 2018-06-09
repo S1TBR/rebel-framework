@@ -39,6 +39,11 @@ torrent_setup(){
    apt-get install aria2c -y
 }
 
+phishing_setup(){
+   pip install wget==3.2
+   apt-get install php-common libapache2-mod-php php-cli -y
+}
+
 net_setup
 info_setup
 com_setup

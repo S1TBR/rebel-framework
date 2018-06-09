@@ -54,7 +54,11 @@ rebel_console(){
      elif [[ $2 =~ 'crypto' ]] ; then
          cd crypto
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ..         
+         cd ..   
+     elif [[ $2 =~ 'phish' ]] ; then
+         cd phish
+         bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+         cd ..                 
       else
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
