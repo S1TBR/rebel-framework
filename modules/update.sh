@@ -1,7 +1,7 @@
 #!/bin/bash
 current_path=$( cd .. ; pwd )
 cd /tmp
-wget https://raw.githubusercontent.com/rebellionil/rebel-framework/master/modules/.is_up_to_date 2> /dev/null
+wget https://raw.githubusercontent.com/rebellionil/rebel-framework/master/modules/.is_up_to_date --output-document=.is_up_to_date 2> /dev/null
 
 if ! [[ $( diff ${current_path}/modules/.is_up_to_date .is_up_to_date ) == "" ]] ; then
     echo -e "[*] Checking for updates.. "
