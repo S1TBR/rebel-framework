@@ -27,6 +27,8 @@ else
 	echo ""
 fi
 ##############################################
+echo -e "$white"
+bash update.sh
 echo -e "${arr[0]}"
 
 rebel_console(){

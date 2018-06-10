@@ -15,7 +15,6 @@ net_setup(){
    python setup.py install
    cd ..
    chmod +x respoof.sh main.sh
-   cd ..
 }
 
 web_setup(){
@@ -30,13 +29,12 @@ info_setup(){
 
 com_setup(){
    pip3 install termchat
-   apt-get install md5sum nc -y
    pip3 install qrcode
 }
 
 torrent_setup(){
    pip3 install pirate-get
-   apt-get install aria2c -y
+   apt-get install aria2 -y
 }
 
 phishing_setup(){
