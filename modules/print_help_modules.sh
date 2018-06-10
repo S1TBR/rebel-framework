@@ -52,6 +52,7 @@ print_modules(){
    echo -e "$red   ├ $green phish/stack           ${red}➤       ${white}StackOverflow phishing using ngrok."    
    echo -e "$red   ├ $green phish/wp              ${red}➤       ${white}WordPress phishing using ngrok."
    echo -e "$red   ├ $green phish/twitter         ${red}➤       ${white}Twitter phishing using ngrok."
+   echo -e "$red   ├ $green phish/advanced        ${red}➤       ${white}Customizable advanced phishing"      
    echo -e "$red   └"
    echo ""
 }
