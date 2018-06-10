@@ -57,7 +57,7 @@ phishing_setup(){
    fi
    unzip ngrok-stable-linux-*
    rm -rf ngrok-stable-linux-*
-   cd ..
+   cd ../..
 }
 
 net_setup
