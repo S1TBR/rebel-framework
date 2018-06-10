@@ -1,5 +1,13 @@
 #!/bin/bash
 
+arr[0]='\e[1;94m' ; blue=${arr[0]}
+arr[1]='\e[1;31m' ; red=${arr[1]}
+arr[2]='\e[1;33m' ; yellow=${arr[2]}
+arr[3]='\e[1;35m' ; purp=${arr[3]}
+arr[4]='\e[1;32m' ; green=${arr[4]}
+arr[5]='\e[97m'   ; white=${arr[5]}
+grayterm='\e[1;40m'
+
 if [[ $( whoami ) != "root" ]] ; then
    echo "[X] need root access"
    exit
@@ -15,6 +23,7 @@ net_setup(){
    python setup.py install
    cd ..
    chmod +x respoof.sh main.sh
+   cd ..
 }
 
 web_setup(){
@@ -55,7 +64,12 @@ info_setup
 com_setup
 torrent_setup
 phishing_setup
-cd .. ; reset ; python print_banner.py
+
+rand="$[ $RANDOM % 6 ]"
+color="${arr[$rand]}" # select random color
+echo -e $color
+
+reset ; python print_banner.py
 
 
 
