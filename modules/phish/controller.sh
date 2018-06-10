@@ -97,6 +97,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               ./Server/ngrok ./ngrok http $port > /dev/null & 
               sleep 10 
               ngrok=$( curl -s -N http://127.0.0.1:4040/status | grep "https://[0-9a-z]*\.ngrok.io" -oh )
+	      echo -e "${red}[*] Ngrok URL : $ngrok "
               cd weeman_mod
               if [[ $js == "nul" ]] ; then
                   python weeman.py $site $port $ngrok 2> /dev/null 
