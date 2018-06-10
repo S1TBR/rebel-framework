@@ -65,11 +65,11 @@ com_setup
 torrent_setup
 phishing_setup
 
+reset
 rand="$[ $RANDOM % 6 ]"
 color="${arr[$rand]}" # select random color
-echo -e $color
-
-reset ; python print_banner.py
+echo -en $color
+python print_banner.py
 
 
 
