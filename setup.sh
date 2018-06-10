@@ -28,7 +28,7 @@ net_setup(){
 
 web_setup(){
    cd modules/web
-
+   cd ..
 }
 info_setup(){
    sudo apt-get install -y perl
@@ -57,6 +57,7 @@ phishing_setup(){
    fi
    unzip ngrok-stable-linux-*
    rm -rf ngrok-stable-linux-*
+   cd ..
 }
 
 net_setup
