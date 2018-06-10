@@ -10,7 +10,7 @@ grayterm='\e[1;40m'
 
 module=$(echo $1 | cut -d '/' -f 2 )
 
-if [[ $module != "site" ]] && [[ $module != "phone" ]] && [[ $module != "server" ]] && [[ $module != "whois" ]] && [[ $module != "loc" ]] && [[ $module != "bcf" ]] && [[ $module != "subdomain" ]] && [[ $module != "email" ]] ; then
+if [[ $module != "site" ]] && [[ $module != "phone" ]] && [[ $module != "server" ]] && [[ $module != "whois" ]] && [[ $module != "loc" ]] && [[ $module != "bcf" ]] && [[ $module != "subdomain" ]] && [[ $module != "valid" ]] && [[ $module != "email" ]] && [[ $module != "domain" ]] ; then
    echo -e "${red}[x] Wrong module name"
    exit
 fi   
@@ -36,7 +36,7 @@ misc(){
     fi    
 }
 
-if [[ $module == "email" ]] ; then
+if [[ $module == "email" ]] || [[ $module == "valid" ]] ; then
 	target="test@gmail.com [email@blabla.com/emails.txt]"   
 else 
     if [[ $module == "phone" ]] ; then
@@ -45,6 +45,8 @@ else
 	   target="google.com"
 	fi
 fi  
+mode="all"
+
 while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white}$1]~#${normal} ) " cmd1 ; do
     history -s "$cmd1"
     if [[ ${1} =~ 'info/' ]] ; then 
@@ -53,6 +55,9 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               echo '  Option                                   Value'
 	            echo '  ======                                   ====='
 	            echo "  target                                   $target"
+              if [[ $module == "domain" ]] ; then
+                  echo -e "  mode                                     $mode\t[all|google|bing|yahoo|ask|baidu|dogpile|exalead|pgp] "
+              fi
 	            echo	          
            elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "modules" ]] ; then
               bash ../print_help_modules.sh modules
@@ -62,6 +67,8 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
         elif [[ $( echo $cmd1 | cut -d " " -f 1 )  == 'set' ]] ; then
 	         if [[ $( echo $cmd1 | cut -d " " -f 2 )  == 'target' ]] ; then
               target="$( echo $cmd1 | cut -d " " -f 3- ) "
+           elif [[ $( echo $cmd1 | cut -d " " -f 2 )  == 'mode' ]] ; then
+              mode="$( echo $cmd1 | cut -d " " -f 3- ) "  
            fi
         elif [[ $( echo $cmd1 | cut -d " " -f 1 )  == 'run' ]] ; then
            if [[ $module == "site" ]] ; then
@@ -78,7 +85,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               echo -e "06\n$target\n" | perl main.pl
            elif [[ $module == "subdomain" ]] ; then
               echo -e "11\n$target\n" | perl main.pl
-           elif [[ $module == "email" ]] ; then
+           elif [[ $module == "valid" ]] ; then
            	  if [[ -f $target ]] ; then
                  for i in $(cat $target); do
                      echo -e "12\n$i\n" | perl main.pl
@@ -88,6 +95,14 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               else	
                     echo -e "12\n$target\n" | perl main.pl
               fi
+           elif [[ $module == "email" ]] ; then
+             cd infoga_mod
+             python3 main.py -i $target -v 3
+             cd ..
+           elif [[ $module == "domain" ]] ; then
+             cd infoga_mod
+             python3 main.py -d $target -s $mode -v 3  
+             cd ..
            fi      
         else
            misc $cmd1
