@@ -20,7 +20,7 @@ if ! [[ $( diff ${current_path}/modules/.is_up_to_date .is_up_to_date ) == "" ]]
        rm -rf rebel-framework
        cd ${current_path} ; bash setup.sh
        echo "[+] The Framework is uptodate ."
-       kill `ps aux | grep rebel.sh | grep -v color  | awk {' print $2 '}`
+       kill `ps aux | grep rebel.sh | grep -v color  | awk {' print $2 '}` 2> /dev/null 1> /dev/null
     fi
 fi
 
