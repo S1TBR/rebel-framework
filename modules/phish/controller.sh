@@ -110,7 +110,8 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               else
                   python weeman.py $site $port $js 2> /dev/null
               fi  
-           fi   
+           fi
+	   cd ..
        fi
     else
        misc $cmd1
