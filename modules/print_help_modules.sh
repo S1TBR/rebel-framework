@@ -45,7 +45,6 @@ print_modules(){
    echo -e "$red   ├ $green crypto/mdr1           ${red}➤       ${white}Encode/decode strings using our own Encoding algorithm"   
    echo -e "$red   ├ $green crypto/find           ${red}➤       ${white}Find hashes inside files [md5,sha256,sha512crypt,etc..]"      
    echo -e "$red   ├"  
-   echo -e "$red   ├ $green phish/fb              ${red}➤       ${white}Facebook phishing using ngrok."    
    echo -e "$red   ├ $green phish/google          ${red}➤       ${white}Google phishing using ngrok." 
    echo -e "$red   ├ $green phish/in              ${red}➤       ${white}LinkedIn phishing using ngrok."    
    echo -e "$red   ├ $green phish/git             ${red}➤       ${white}Github phishing using ngrok."   
