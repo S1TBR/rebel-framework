@@ -73,7 +73,7 @@ rebel_console(){
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
    elif [[ $1 == "help" ]] || [[ $1 == "?" ]] ; then
-       bash ../print_help_modules help 
+       bash ../print_help_modules.sh help 
    elif [[ $1 == 'quit' ]] || [[ $1 == 'exit' ]] ; then
        exit 0
    elif [[ $1 == "banner" ]] ; then
@@ -97,24 +97,3 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤~#${norm
    history -s "$option"
    rebel_console $option
 done
-# list ==
-# tornado
-# brutex
-# nmap
-# white rappit
-# dir search
-# mdr1, hgrep, wshell
-# sinper
-# atscan
-# hydra
-# ctrace, radare2  scriptable tools
-# unix-priv-sec check, lynis
-# msfhelper
-# nikto
-# foremost binwalk volatilty bulk rkhunter
-# android apk decompile and analysis
-# wordpress exploiation framework & wpscan
-# routersploit
-# fluxion
-# pcap file analysis and extractor
-
