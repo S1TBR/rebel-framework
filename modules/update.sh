@@ -1,4 +1,5 @@
 #!/bin/bash
+trap  "echo '[x] Please wait till the update finish, exiting now can corrupt the framework files'" SIGINT SIGTERM
 current_path=$( cd .. ; pwd )
 cd /tmp
 wget https://raw.githubusercontent.com/rebellionil/rebel-framework/master/modules/.is_up_to_date --output-document=.is_up_to_date 2> /dev/null
@@ -10,7 +11,6 @@ if ! [[ $( diff ${current_path}/modules/.is_up_to_date .is_up_to_date ) == "" ]]
     echo -n "[+] New Updates are avilable, Update the Framework ? [Y/n] "
     read update
     if [[ $update =~ "y" ]] || [[ $update == "" ]] || [[ $update =~ "Y" ]] ; then
-       trap  "echo '[x] Please wait till the update finish, exiting now can corrupt the framework files'" SIGINT SIGTERM
        echo -en "[+] Cloning Rebel-framework... \r"
        git clone https://github.com/rebellionil/rebel-framework 2> /dev/null
        rm -rf .is_up_to_date
