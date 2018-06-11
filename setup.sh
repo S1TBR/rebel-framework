@@ -13,6 +13,23 @@ if [[ $( whoami ) != "root" ]] ; then
    exit
 fi
 
+if [[ $1 == "ngrok" ]] ; then
+   if ! [[ -f phish/Server/ngrok ]] ; then
+      if [[ -f ngrok ]] ; then
+         mv ngrok modules/phish/Server/ngrok
+      else
+         cd modules/phish/Server
+         if [[ $( arch ) == "x86_64" ]] ; then
+            wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip 2> /dev/null
+         else
+            wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip 2> /dev/null
+         fi
+         unzip ngrok-stable-linux-* 2> /dev/null 1> /dev/null
+         rm -rf ngrok-stable-linux-*
+      fi
+   fi
+   exit
+fi
 sudo apt-get update
 apt-get install python perl git -y
 
