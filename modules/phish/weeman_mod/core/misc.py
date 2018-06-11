@@ -30,11 +30,11 @@ def printt(s, msg):
         print("\033[01;31mError: %s\033[00m")
         sys.exit(1)
     elif s == 2:
-        print("[%s]\033[01;32m %s\033[00m" %(time.strftime("%H:%M:%S"),msg))
+        print("[+]\033[01;32m %s\033[00m" %(msg))
     elif s == 3:
-        print("\033[01;37m[%s] %s\033[00m" %(time.strftime("%H:%M:%S"),msg))
+        print("\033[01;37m[+] %s\033[00m" %(msg))
     else:
-        print("\033[01;37m[%s] %s\033[00m" %(time.strftime("%H:%M:%S"),msg))
+        print("\033[01;37m[+] %s\033[00m" %(msg))
 
 def print_help():
 
