@@ -66,21 +66,21 @@ rebel_console(){
       fi
    elif [[ $1 == "show" ]] ; then
       if [[ $2 == "modules" ]] ; then
-          bash print_help_modules.sh modules
+          bash ../print_help_modules.sh modules
       elif [[ $2 == "help" ]] ; then
-          bash print_help_modules.sh help
+          bash ../print_help_modules.sh help
       else
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
    elif [[ $1 == "help" ]] || [[ $1 == "?" ]] ; then
-       bash print_help_modules help 
+       bash ../print_help_modules help 
    elif [[ $1 == 'quit' ]] || [[ $1 == 'exit' ]] ; then
        exit 0
    elif [[ $1 == "banner" ]] ; then
        rand="$[ $RANDOM % 6 ]"
        color="${arr[$rand]}" # select random color
        echo -e $color
-       python print_banner.py
+       python ../print_banner.py
    elif [[ $1 == "clear" ]] || [[ $1 == "reset" ]] ; then
        reset
    elif [[ $1 == '!' ]] && [[ $( which $2 ) != "" ]] ; then
