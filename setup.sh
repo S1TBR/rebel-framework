@@ -14,6 +14,8 @@ if [[ $( whoami ) != "root" ]] ; then
 fi
 
 sudo apt-get update
+apt-get install python perl git -y
+
 net_setup(){
    cd modules/net/
    apt-get install dsniff etherape nmap ettercap-graphical iptraf-ng driftnet tshark tcpdump sslstrip -y
@@ -28,6 +30,8 @@ net_setup(){
 
 web_setup(){
    cd modules/web
+   apt-get install arachni -y
+
    cd ..
 }
 info_setup(){
@@ -49,15 +53,17 @@ torrent_setup(){
 phishing_setup(){
    pip install wget==3.2
    apt-get install php-common libapache2-mod-php php-cli -y
-   cd phish/Server
-   if [[ $( arch ) == "x86_64" ]] ; then
-      wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-   else
-      wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip
+   if ! [[ -f phish/Server/ngrok ]] ; then
+      cd phish/Server
+      if [[ $( arch ) == "x86_64" ]] ; then
+         wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+      else
+         wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip
+      fi
+      unzip ngrok-stable-linux-*
+      rm -rf ngrok-stable-linux-*
+      cd ../..
    fi
-   unzip ngrok-stable-linux-*
-   rm -rf ngrok-stable-linux-*
-   cd ../..
 }
 
 net_setup
