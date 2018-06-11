@@ -21,9 +21,10 @@ if ! [[ $( diff ${current_path}/modules/.is_up_to_date .is_up_to_date ) == "" ]]
        mv ${current_path}/modules/phish/Server/ngrok ${currnet_path}
        rm -rf ${current_path}/modules
        mv modules ${current_path}
-       mv ${current_path}/ngrok ${current_path}/modules/phish/Server/ngrok 
        cd ..
        rm -rf rebel-framework
+       cd ${current_path}
+       bash setup.sh ngrok
        if [[ $resetup == "true" ]] ; then
           cd ${current_path} ; xterm -T "SETUP" -e "bash setup.sh"
        fi
