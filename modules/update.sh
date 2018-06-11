@@ -19,7 +19,7 @@ if ! [[ $( diff ${current_path}/modules/.is_up_to_date .is_up_to_date ) == "" ]]
        mv rebel.sh ${current_path}
        mv setup.sh ${current_path}
        if [[ -f ${current_path}/modules/phish/Server/ngrok ]] ; then
-          mv ${current_path}/modules/phish/Server/ngrok ${currnet_path}
+          mv ${current_path}/modules/phish/Server/ngrok ${current_path}
        fi   
        rm -rf ${current_path}/modules
        mv modules ${current_path}
