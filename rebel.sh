@@ -34,33 +34,33 @@ echo -e "${arr[0]}"
 rebel_console(){
    if [[ $1 == 'use' ]] ; then
       if [[ $2 =~ 'net' ]] ; then
-         cd net
+         cd ../net
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ..
+         cd ../.tab
       elif [[ $2 =~ 'info' ]] ; then
-         cd info
+         cd ../info
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ..
+         cd ../.tab
       elif [[ $2 =~ 'web' ]] ; then
-         cd web
+         cd ../web
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ..
+         cd ../.tab
       elif [[ $2 =~ 'torrent' ]] ; then
-         cd torrent
+         cd ../torrent
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ..
+         cd ../.tab
      elif [[ $2 =~ 'com' ]] ; then
-         cd com
+         cd ../com
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ..
+         cd ../.tab
      elif [[ $2 =~ 'crypto' ]] ; then
-         cd crypto
+         cd ../crypto
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ..   
+         cd ../.tab
      elif [[ $2 =~ 'phish' ]] ; then
-         cd phish
+         cd ../phish
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ..                 
+         cd ../.tab
       else
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
@@ -92,6 +92,7 @@ rebel_console(){
    fi
 }
 
+cd .tab
 while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤~#${normal} ) " option; do
    history -s "$option"
    rebel_console $option
