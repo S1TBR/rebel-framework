@@ -14,25 +14,29 @@ if ! [[ $( diff ${current_path}/modules/.is_up_to_date .is_up_to_date ) == "" ]]
        echo -en "[+] Cloning Rebel-framework... \r"
        git clone https://github.com/rebellionil/rebel-framework 2> /dev/null
        rm -rf .is_up_to_date
-       cd rebel-framework
-       echo -e "[+] Cloning Rebel-framework... done"
-       mv rebel.sh ${current_path}
-       mv setup.sh ${current_path}
-       if [[ -f ${current_path}/modules/phish/Server/ngrok ]] ; then
-          mv ${current_path}/modules/phish/Server/ngrok ${current_path}
-       fi   
-       rm -rf ${current_path}/modules
-       mv modules ${current_path}
-       cd ..
-       rm -rf rebel-framework
-       cd ${current_path}
-       bash setup.sh ngrok
-       if [[ $resetup == "true" ]] ; then
-          cd ${current_path} ; xterm -T "SETUP" -e "bash setup.sh"
+       if [[ -d rebel-framework ]] ; then
+          cd rebel-framework
+          echo -e "[+] Cloning Rebel-framework... done"
+          mv rebel.sh ${current_path}
+          mv setup.sh ${current_path}
+          if [[ -f ${current_path}/modules/phish/Server/ngrok ]] ; then
+             mv ${current_path}/modules/phish/Server/ngrok ${current_path}
+          fi   
+          rm -rf ${current_path}/modules
+          mv modules ${current_path}
+          cd ..
+          rm -rf rebel-framework
+          cd ${current_path}
+          bash setup.sh ngrok
+          if [[ $resetup == "true" ]] ; then
+             cd ${current_path} ; xterm -T "SETUP" -e "bash setup.sh"
+          fi
+          echo "[+] The Framework is uptodate ."
+          kill `ps aux | grep rebel.sh | grep -v color  | awk {' print $2 '}` 2> /dev/null 1> /dev/null
+       else
+          echo "[+] Update didn't complete correctly                   "          
        fi
-       echo "[+] The Framework is uptodate ."
-       kill `ps aux | grep rebel.sh | grep -v color  | awk {' print $2 '}` 2> /dev/null 1> /dev/null
-    fi
+    fi   
 fi
 
 
