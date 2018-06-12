@@ -1,5 +1,4 @@
 #!/bin/bash
-trap  "echo '[x] Please wait till the update finish, exiting now can corrupt the framework files'" SIGINT SIGTERM
 current_path=$( cd .. ; pwd )
 cd /tmp
 wget https://raw.githubusercontent.com/rebellionil/rebel-framework/master/modules/.is_up_to_date --output-document=.is_up_to_date 2> /dev/null
