@@ -10,7 +10,7 @@ grayterm='\e[1;40m'
 
 module=$(echo $1 | cut -d '/' -f 2 )
 
-if [[ $module != "dirscan" ]] ; then
+if [[ $module != "dirscan" ]] && [[ $module != "fingerprint" ]] && [[ $module != "attack" ]] && [[ $module != "audit" ]] && [[ $module != "dsisclosure" ]] && [[ $module != "fullscan" ]]; then
    echo -e "${red}[x] Wrong module name"
    exit
 fi   
@@ -49,10 +49,15 @@ cookie="off"
 useragent="off"
 randomagent="off"
 timeout="default"
-ip="off"
 proxy="off"
+ip="off"
 rbh="off"
-
+proxy_auth="nul"
+auth="nul"
+redirect="on"
+data="nul"
+referer="nul"
+host="nul"
 
 while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white}$1]~#${normal} ) " cmd1 ; do
     history -s "$( echo $cmd1 | cut -d " " -f 1 )"
@@ -124,7 +129,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
 	      elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'exsubdir' ]] ; then
           exsubdir=$( echo $cmd1 | cut -d " " -f 3- )
           if [[ $exsubdir != "off" ]] ; then
-              exsubdir_arg="-c $( echo $cmd1 | cut -d " " -f 3- )"
+              exsubdir_arg="--exclude-subdir=$( echo $cmd1 | cut -d " " -f 3- )"
           else
               exsubdir_arg=""    
           fi                      
@@ -134,7 +139,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
 	      elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'cookie' ]] ; then
           cookie=$( echo $cmd1 | cut -d " " -f 3- )
           if [[ $cookie != "off" ]] ; then
-              cookie_arg="=$( echo $cmd1 | cut -d " " -f 3- )"
+              cookie_arg="--cookie=$( echo $cmd1 | cut -d " " -f 3- )"
           else
               cookie_arg=""   
           fi                    
@@ -193,5 +198,133 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
       else        
          misc $cmd1
       fi 
-   fi        
+
+   #########################################################################################################
+      
+   else
+      if [[ $( pwd | tr '/' '\n' | tail -n 1 ) != "wascan_mod" ]] ; then
+         cd wascan_mod
+      fi
+      if [[ $( echo $cmd1 | cut -d " " -f 1 ) == "show" ]] ; then
+        if [[ $( echo $cmd1 | cut -d " " -f 2 ) == "options" ]] ; then
+        {       
+          echo -e "  Option\t\t\t\t|Value"
+          echo -e "  ======\t\t\t\t|====="
+          echo -e "  target\t\t\t\t|$target|[etc.com/sites.txt]" #
+          echo -e "  cookie\t\t\t\t|$cookie" #
+          echo -e "  auth\t\t\t\t|$auth|[HTTP Basic Authentication (user:pass)]"         
+          echo -e "  useragent\t\t\t\t|$useragent" #
+          echo -e "  randomagent\t\t\t\t|$randomagent|[on/off]" # 
+          echo -e "  timeout\t\t\t\t|$timeout|[Connection timeout]" #
+          echo -e "  proxy\t\t\t\t|$proxy|[Http Proxy (example: localhost:8080)]" #
+          echo -e "  proxy_auth\t\t\t\t|$proxy_auth|[Proxy Authentication, (user:pass)]" #  
+          echo -e "  redirect\t\t\t\t|$redirect|[Set redirect target URL (on/off)]" 
+          echo -e "  data\t\t\t\t|$data|[Data to be sent via POST method]" #
+          echo -e "  host\t\t\t\t|$host|[HTTP Host header value]" #
+          echo -e "  referer\t\t\t\t|$referer|[HTTP Referer header value]" #
+         } | column -t -s "|"
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "modules" ]] ; then
+          bash ../../print_help_modules.sh modules
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "help" ]] ; then
+          bash ../../print_help_modules.sh help
+        fi 
+      elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'set' ]] ; then
+        if [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'target' ]] ; then
+          target=$( echo $cmd1 | cut -d " " -f 3- )
+                     
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'cookie' ]] ; then
+          cookie=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $cookie != "off" ]] ; then
+              cookie_arg="-c $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              cookie_arg=""   
+          fi                    
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'useragent' ]] ; then
+          useragent=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $useragent != "off" ]] ; then
+              useragent_arg="-A $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              useragent_arg=""    
+          fi                   
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'randomagent' ]] ; then
+          randomagent=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $randomagent == "on" ]] ; then
+              randomagent_arg="-r"
+          else
+              randomagent_arg=""   
+          fi     
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'timeout' ]] ; then
+          timeout=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $timeout != "default" ]] ; then
+              timeout_arg="-t $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              timeout_arg=""  
+          fi                         
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'proxy' ]] ; then
+          proxy=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $proxy != "off" ]] ; then
+              proxy_arg="-p $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              proxy_arg=""   
+          fi
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'proxy_auth' ]] ; then
+          proxy_auth=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $proxy_auth != "nul" ]] ; then
+              proxy_auth_arg="-P $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              proxy_auth_arg=""   
+          fi                                      
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'data' ]] ; then
+          data=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $proxy != "off" ]] ; then
+              data_arg="-d $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              data_arg=""   
+          fi                                      
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'host' ]] ; then
+          host=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $host != "nul" ]] ; then
+              host_arg="-h $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              host_arg=""   
+          fi 
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'referer' ]] ; then
+          referer=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $referer != "nul" ]] ; then
+              referer_arg="-R $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              referer_arg=""  
+          fi     
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'auth' ]] ; then
+          auth=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $auth != "nul" ]] ; then
+              auth_arg="-a $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              auth_arg=""   
+          fi
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'redirect' ]] ; then
+          redirect=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $redirect != "off" ]] ; then
+              redirect_arg="-n"
+          else
+              redirect_arg=""   
+          fi 
+        fi         
+      elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'run' ]] ; then
+         if [[ $module  == "fingerprint" ]] ; then
+             scan_mode="0"
+         elif [[ $module == "attack" ]] ; then
+            scan_mode="1"
+         elif [[ $module == "audit" ]] ; then
+            scan_mode="2"
+         elif [[ $module == "dsisclosure" ]] ; then
+            scan_mode="4"
+         elif [[ $module == "fullscan" ]] ; then
+            scan_mode="5"
+         fi
+          python wascan.py -u $target -s $scan_mode $cookie_arg $useragent_arg $timeout_arg $randomagent_arg $redirect_arg $auth_arg $host_arg $data_arg $proxy_arg $proxy_auth_arg $referer_arg
+      else        
+         misc $cmd1
+      fi                 
+   fi
 done
