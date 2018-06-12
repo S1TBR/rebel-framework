@@ -46,10 +46,7 @@ net_setup(){
 }
 
 web_setup(){
-   cd modules/web
-   apt-get install arachni -y
-
-   cd ..
+   pip install BeautifulSoup requests urllib3 humanfriendly
 }
 info_setup(){
    sudo apt-get install -y perl
