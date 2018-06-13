@@ -63,7 +63,7 @@ fullscan="off"
 noexploit="off"
 
 while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white}$1]~#${normal} ) " cmd1 ; do
-    history -s "$( echo $cmd1 | cut -d " " -f 1"
+    history -s "$cmd1"
     if [[ ${1} =~ 'web/dirscan' ]] ; then
       if [[ $( pwd | tr '/' '\n' | tail -n 1 ) != "dirsearch_mod" ]] ; then
            	   cd dirsearch_mod
