@@ -1,4 +1,4 @@
-#!/bin/bash
+appscanappscanappscanappscan#!/bin/bash
 normal='\e[0m'
 arr[0]='\e[1;94m' ; blue=${arr[0]}
 arr[1]='\e[1;31m' ; red=${arr[1]}
@@ -301,7 +301,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
           fi           
         fi  
       elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == "run" ]]  ; then
-         python cmsmap.py -t $target -T $threads $fullscan_arg $noexploit_arg $useragent_arg $force_arg
+         python cmsmap.py -t $target -T $threads $fullscan_arg $noexploit_arg $useragent_arg $force_arg -v
       else
          misc $cmd1
       fi                                                
