@@ -34,6 +34,7 @@ print_modules(){
    echo -e "$red   ├"
    echo -e "$red   ├ $green web/dirscan           ${red}➤       ${white}Scan for hidden web directories"
    echo -e "$red   ├ $green web/appscan           ${red}➤       ${white}Gather OSINT and fuzz for OWASP vulnerabilities"
+   echo -e "$red   ├ $green web/cmsscan           ${red}➤       ${white}Scan and detect CMS vulnerabilities [WordPress, Joomla and Drupal]"   
    echo -e "$red   ├"   
    echo -e "$red   ├ $green com/chat              ${red}➤       ${white}create or join an existing chatroom"
    echo -e "$red   ├ $green com/qrshare           ${red}➤       ${white}Send files using qr codes"      
