@@ -10,7 +10,7 @@ grayterm='\e[1;40m'
 
 module=$(echo $1 | cut -d '/' -f 2 )
 
-if [[ $module != "dirscan" ]] && [[ $module != "appscan" ]] ; then
+if [[ $module != "dirscan" ]] && [[ $module != "appscan" ]] && [[ $module != "cmsscan" ]] ; then
    echo -e "${red}[x] Wrong module name"
    exit
 fi   
@@ -43,7 +43,11 @@ delay="default"
 recursive="off"
 subdir="off"
 exsubdir="off"
-threads="100"
+if [[ $module == "cmsscan" ]] ; then
+   threads="5"
+else
+   threads="100"
+fi      
 exstatus="400,403,500,301"
 cookie="off"
 useragent="off"
@@ -53,6 +57,10 @@ proxy="off"
 ip="off"
 rbh="off"
 limit="3"
+
+force="nul"
+fullscan="off"
+noexploit="off"
 
 while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white}$1]~#${normal} ) " cmd1 ; do
     history -s "$( echo $cmd1 | cut -d " " -f 1 )"
@@ -234,6 +242,68 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
          fi
       else
             misc $cmd1
-      fi     
-   fi
+      fi  
+  elif [[ ${1} =~ 'web/cmsscan' ]] ; then
+      if [[ $( pwd | tr '/' '\n' | tail -n 1 ) != "cmsmap_mod" ]] ; then
+               cd cmsmap_mod
+      fi
+      if [[ $( echo $cmd1 | cut -d " " -f 1 ) == "show" ]] ; then
+       if [[ $( echo $cmd1 | cut -d " " -f 2 ) == "options" ]] ; then
+        {
+          echo -e "  Option\t\t\t\t|Value"
+          echo -e "  ======\t\t\t\t|====="
+          echo -e "  target\t\t\t\t|$target|[etc.com/sites.txt]"
+          echo -e "  threads\t\t\t\t|$threads|[Number of Threads]"
+          echo -e "  useragent\t\t\t\t|$useragent"
+          echo -e "  force\t\t\t\t|$force|[force scan (W)ordpress, (J)oomla or (D)rupal]"
+          echo -e "  fullscan\t\t\t\t|$fullscan|[full scan using large plugin lists(SLOW)]"
+          echo -e "  noexploit\t\t\t\t|$noexploit|[enumerate plugins without searching exploits]"
+          echo
+         } | column -t -s "|"
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "modules" ]] ; then
+          bash ../../print_help_modules.sh modules
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == "help" ]] ; then
+          bash ../../print_help_modules.sh help
+        fi 
+
+      elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'set' ]] ; then
+        if [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'target' ]] ; then
+          target=$( echo $cmd1 | cut -d " " -f 3- )
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'threads' ]] ; then
+          threads=$( echo $cmd1 | cut -d " " -f 3- )
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'useragent' ]] ; then
+          useragent=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $useragent != "off" ]] ; then
+              useragent_arg="--ua=$( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              useragent_arg=""    
+          fi     
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'force' ]] ; then
+          force=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $force != "nul" ]] ; then
+              force_arg="-f $( echo $cmd1 | cut -d " " -f 3- )"
+          else
+              force_arg=""    
+          fi 
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'fullscan' ]] ; then
+          fullscan=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $fullscan != "off" ]] ; then
+              fullscan_arg="-F"
+          else
+              fullscan_arg=""    
+          fi           
+        elif [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'noexploit' ]] ; then
+          noexploit=$( echo $cmd1 | cut -d " " -f 3- )
+          if [[ $noexploit != "off" ]] ; then
+              noexploit_arg="--noedb"
+          else
+              noexploit_arg=""    
+          fi           
+        fi  
+      elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == "run" ]]  ; then
+         python cmsmap.py -t $target -T $threads $fullscan_arg $noexploit_arg $useragent_arg $force_arg
+      else
+         misc $cmd1
+      fi                                                
+  fi
 done
