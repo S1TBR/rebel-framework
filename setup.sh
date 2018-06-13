@@ -47,7 +47,7 @@ net_setup(){
 
 web_setup(){
    pip install BeautifulSoup requests urllib3 humanfriendly
-   pip3 install humanfriendly urllib3 requests BeautifulSoup
+   pip3 install humanfriendly urllib3 requests
 }
 info_setup(){
    sudo apt-get install -y perl
