@@ -61,7 +61,7 @@ com_setup(){
 }
 
 torrent_setup(){
-   pip3 install pirate-get
+   pip install pirate-get
    apt-get install aria2 -y
 }
 
