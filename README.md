@@ -102,11 +102,17 @@ https://github.com/1N3/BlackWidow
 https://github.com/Dionach/CMSmap
 <br>
 https://github.com/vincepare/DirScan
+<br>
 https://github.com/s0md3v/Decodify
+<br>
 https://github.com/UndeadSec/SocialFish
+<br>
 https://github.com/evait-security/weeman
+<br>
 https://github.com/m4ll0k/Infoga
+<br>
 https://github.com/Moham3dRiahi/Th3inspector
+<br>
 https://github.com/sdushantha/qr-filetransfer
-
+<br>
 © 2018
