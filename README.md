@@ -97,6 +97,8 @@ done
 https://github.com/rebellionil/rebel-framework/issues
 
 ## DONATE
+| COIN | ADDRESS |
+------|----------|
 | ETH | 0x46409ba4e86313d99a5e13DD1Ca5f82d95529553 |
 | BTC | 11wqnCon1V3NmYGbkLtZtAWaqbH3Nc3VS          |
 ## EXTERNAL PROJECTS USED INSIDE THE FRAMEWORK 
