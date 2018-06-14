@@ -6,6 +6,14 @@
 <br>
 automate the automation
 <br>
+# START
+``` 
+git clone https://github.com/rebellionil/rebel-framework.git
+cd rebel-framework
+bash setup.sh
+bash rebel.sh
+```
+
 # SUPPORTED DISTRIBUTIONS
 |Distribution | Version Check | supported | dependencies already installed |status |
 ----------|-------|------|------|-------|
@@ -83,4 +91,5 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
    fi
 done    
 ```
+
 © 2018
