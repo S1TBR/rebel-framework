@@ -95,4 +95,16 @@ done
 ### OPEN NEW ISSUE   
 https://github.com/rebellionil/rebel-framework/issues
 
+
+## EXTERNAL PROJECTS USED INSIDE THE FRAMEWORK 
+https://github.com/1N3/BlackWidow
+https://github.com/Dionach/CMSmap
+https://github.com/vincepare/DirScan
+https://github.com/s0md3v/Decodify
+https://github.com/UndeadSec/SocialFish
+https://github.com/evait-security/weeman
+https://github.com/m4ll0k/Infoga
+https://github.com/Moham3dRiahi/Th3inspector
+https://github.com/sdushantha/qr-filetransfer
+
 © 2018
