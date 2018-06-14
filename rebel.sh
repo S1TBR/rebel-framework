@@ -64,7 +64,11 @@ rebel_console(){
      elif [[ $2 =~ ^'re' ]] ; then
          cd ../re
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
-         cd ../tab         
+         cd ../tab  
+     elif [[ $2 =~ ^'df' ]] ; then
+         cd ../df
+         bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+         cd ../tab                  
       else
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
