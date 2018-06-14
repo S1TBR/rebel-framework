@@ -18,7 +18,7 @@ bash rebel.sh
 |Distribution | Version Check | supported | dependencies already installed |status |
 ----------|-------|------|------|-------|
 |Kali Linux|4.4.0 | yes| yes | working   |
-|Parrot OS| |yes|yes|working   |
+|Parrot OS|4.14.0 |yes|yes|working   |
 
 ## PORT YOUR OWN TOOLS TO REBEL !
 ### controller.sh sample
