@@ -96,7 +96,8 @@ done
 ### OPEN NEW ISSUE   
 https://github.com/rebellionil/rebel-framework/issues
 
-
+## DONATE
+### ethereum address : 0xe0E128aDcD5002F6680Ce123aBDEAc2Bdf39B15A
 ## EXTERNAL PROJECTS USED INSIDE THE FRAMEWORK 
 https://github.com/1N3/BlackWidow
 <br>
