@@ -1,4 +1,4 @@
-appscanappscanappscanappscan#!/bin/bash
+#!/bin/bash
 normal='\e[0m'
 arr[0]='\e[1;94m' ; blue=${arr[0]}
 arr[1]='\e[1;31m' ; red=${arr[1]}
