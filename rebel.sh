@@ -37,30 +37,34 @@ rebel_console(){
          cd ../net
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ../tab
-      elif [[ $2 =~ 'info' ]] ; then
+      elif [[ $2 =~ ^'info' ]] ; then
          cd ../info
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ../tab
-      elif [[ $2 =~ 'web' ]] ; then
+      elif [[ $2 =~ ^'web' ]] ; then
          cd ../web
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ../tab
-      elif [[ $2 =~ 'torrent' ]] ; then
+      elif [[ $2 =~ ^'torrent' ]] ; then
          cd ../torrent
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ../tab
-     elif [[ $2 =~ 'com' ]] ; then
+     elif [[ $2 =~ ^'com' ]] ; then
          cd ../com
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ../tab
-     elif [[ $2 =~ 'crypto' ]] ; then
+     elif [[ $2 =~ ^'crypto' ]] ; then
          cd ../crypto
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ../tab
-     elif [[ $2 =~ 'phish' ]] ; then
+     elif [[ $2 =~ ^'phish' ]] ; then
          cd ../phish
          bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
          cd ../tab
+     elif [[ $2 =~ ^'re' ]] ; then
+         cd ../re
+         bash controller.sh $2 $3 $4 $5 $6 $7 $8 $9 ${10}
+         cd ../tab         
       else
          echo -e "${purp}[-] Invalid parameter use show 'help' for more information"
       fi
