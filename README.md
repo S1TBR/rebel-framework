@@ -91,5 +91,8 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
    fi
 done    
 ```
+# BUG ? 
+### OPEN NEW ISSUE   
+https://github.com/rebellionil/rebel-framework/issues
 
 © 2018
