@@ -1,3 +1,5 @@
+#!/bin/bash
+
 normal='\e[0m'
 arr[0]='\e[1;94m' ; blue=${arr[0]}
 arr[1]='\e[1;31m' ; red=${arr[1]}
@@ -6,7 +8,6 @@ arr[3]='\e[1;35m' ; purp=${arr[3]}
 arr[4]='\e[1;32m' ; green=${arr[4]}
 arr[5]='\e[97m'   ; white=${arr[5]}
 grayterm='\e[1;40m'
-normal='\e[0m'
 
 module=$(echo $1 | cut -d '/' -f 2 )
 
