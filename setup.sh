@@ -80,18 +80,29 @@ phishing_setup(){
       cd ../..
    fi
 }
+path=$(pwd)
+re_setup(){
+   apt-get install radare2 npm -y
+   npm install -g ctrace --save-dev --save-exact
+   cd /tmp
+   git clone https://github.com/plasma-disassembler/plasma
+   cd plasma
+   bash install.sh
+}
 
 net_setup
 info_setup
 com_setup
 torrent_setup
 phishing_setup
+re_setup
+
 
 reset
 rand="$[ $RANDOM % 6 ]"
 color="${arr[$rand]}" # select random color
 echo -en $color
-python print_banner.py
+python ${path}/print_banner.py
 
 
 
