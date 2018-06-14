@@ -98,7 +98,9 @@ https://github.com/rebellionil/rebel-framework/issues
 
 ## EXTERNAL PROJECTS USED INSIDE THE FRAMEWORK 
 https://github.com/1N3/BlackWidow
+<br>
 https://github.com/Dionach/CMSmap
+<br>
 https://github.com/vincepare/DirScan
 https://github.com/s0md3v/Decodify
 https://github.com/UndeadSec/SocialFish
