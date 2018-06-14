@@ -80,7 +80,7 @@ phishing_setup(){
       cd ../..
    fi
 }
-path=$(pwd)
+
 re_setup(){
    apt-get install radare2 npm -y
    npm install -g ctrace --save-dev --save-exact
@@ -95,6 +95,7 @@ info_setup
 com_setup
 torrent_setup
 phishing_setup
+path=$(pwd)
 re_setup
 
 
