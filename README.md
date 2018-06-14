@@ -6,7 +6,7 @@
 <br>
 automate the automation
 <br>
-# START
+## START
 ``` 
 git clone https://github.com/rebellionil/rebel-framework.git
 cd rebel-framework
@@ -14,13 +14,13 @@ bash setup.sh
 bash rebel.sh
 ```
 
-# SUPPORTED DISTRIBUTIONS
+## SUPPORTED DISTRIBUTIONS
 |Distribution | Version Check | supported | dependencies already installed |status |
 ----------|-------|------|------|-------|
 |Kali Linux|4.4.0 | yes| yes | working   |
 |Parrot OS| |yes|yes|working   |
 
-# PORT YOUR OWN TOOLS TO REBEL !
+## PORT YOUR OWN TOOLS TO REBEL !
 ### controller.sh sample
 ```bash
 #!/bin/bash
@@ -91,7 +91,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
    fi
 done    
 ```
-# BUG ? 
+## BUG ? 
 ### OPEN NEW ISSUE   
 https://github.com/rebellionil/rebel-framework/issues
 
