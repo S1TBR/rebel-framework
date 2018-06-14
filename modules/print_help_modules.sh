@@ -53,8 +53,12 @@ print_modules(){
    echo -e "$red   ├ $green phish/stack           ${red}➤       ${white}StackOverflow phishing using ngrok."    
    echo -e "$red   ├ $green phish/wp              ${red}➤       ${white}WordPress phishing using ngrok."
    echo -e "$red   ├ $green phish/twitter         ${red}➤       ${white}Twitter phishing using ngrok."
-   echo -e "$red   ├ $green phish/advanced        ${red}➤       ${white}Customizable advanced phishing"      
-   echo -e "$red   └"
+   echo -e "$red   ├ $green phish/advanced        ${red}➤       ${white}Customizable advanced phishing" 
+   echo -e "$red   ├"     
+   echo -e "$red   ├ $green re/info               ${red}➤       ${white}Collect information about the binary file" 
+   echo -e "$red   ├ $green re/trace              ${red}➤       ${white}Trace binary/PID system calls and signals" 
+   echo -e "$red   ├ $green re/elfdec             ${red}➤       ${white}Decompile elf file function(s)" 
+   echo -e "$red   └"   
    echo ""
 }
 print_help(){
