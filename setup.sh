@@ -90,6 +90,9 @@ re_setup(){
    bash install.sh
 }
 
+df_setup(){
+   apt-get install binwalk bulk-extractor -y
+}
 net_setup
 info_setup
 com_setup
@@ -97,7 +100,7 @@ torrent_setup
 phishing_setup
 path=$(pwd)
 re_setup
-
+df_setup
 
 reset
 rand="$[ $RANDOM % 6 ]"
