@@ -58,6 +58,10 @@ print_modules(){
    echo -e "$red   ├ $green re/info               ${red}➤       ${white}Collect information about the binary file" 
    echo -e "$red   ├ $green re/trace              ${red}➤       ${white}Trace binary/PID system calls and signals" 
    echo -e "$red   ├ $green re/elfdec             ${red}➤       ${white}Decompile elf file function(s)" 
+   echo -e "$red   ├"   
+   echo -e "$red   ├ $green df/entropy            ${red}➤       ${white}Calculate file entropy" 
+   echo -e "$red   ├ $green df/recover            ${red}➤       ${white}Recursively scan and extracts all recoverable files" 
+   echo -e "$red   ├ $green df/scan               ${red}➤       ${white}Scan and recover a disk image for regular expressions and other content"         
    echo -e "$red   └"   
    echo ""
 }
