@@ -96,6 +96,12 @@ done
 ### OPEN NEW ISSUE   
 https://github.com/rebellionil/rebel-framework/issues
 
+## TODO
+- [ ] Add wireless modules
+- [ ] Add memory forensics modules
+- [ ] Add java and pyc decompilers
+- [ ] Make rebel scriptable and add command line arguments 
+
 ## DONATE
 | COIN | ADDRESS |
 ------|----------|
