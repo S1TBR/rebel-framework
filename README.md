@@ -156,7 +156,7 @@ https://github.com/sdushantha/qr-filetransfer
 <br>
 
 <br>
-- special thanks for mahmoud mohamed 'Mogza' for helping improve the project quality by testing it in several environments.
+- special thanks for Mahmoud Mohamed 'Mogza' for helping improve the project quality by testing it in several environments.
 <br>
 
 © 2018
