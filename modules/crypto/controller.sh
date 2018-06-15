@@ -101,7 +101,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               target=$( echo $cmd1 | cut -d " " -f 3- )
            fi    
         elif [[ $cmd1 == "run" ]] ; then
-           python3 main.py "$target"
+           python3 main.py "$target" 2> /dev/null | awk NF
         elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == "back" ]] || [[ $( echo $cmd1 | cut -d " " -f 1 ) == "exit" ]] || [[ $( echo $cmd1 | cut -d " " -f 1 ) == "quit" ]] ; then
            cd .. ; break
         elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == '!' ]] ; then
