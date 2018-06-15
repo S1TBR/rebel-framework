@@ -82,7 +82,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               interface=$( echo $cmd1 | cut -d " " -f 3- )
 	      fi
         elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'run' ]] ; then
-           ./main.sh -i $interface -t $target --map-lan -sn
+           bash main.sh -i $interface -t $target --map-lan -sn
         else
               misc $cmd1            
         fi
@@ -100,7 +100,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               bash ../print_help_modules.sh help
            fi               
         elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'run' ]] ; then
-           ./main.sh -I
+           bash main.sh -I
         else
               misc $cmd1           
         fi
@@ -138,9 +138,9 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
            fi
        elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'run' ]] ; then
           if [[ $fscan == "on" ]] ; then
-             ./main.sh -i $interface -t $target --map-lan -F
+             bash main.sh -i $interface -t $target --map-lan -F
           else
-             ./main.sh -i $interface -t $target --map-lan -A -sV -p-
+             bash main.sh -i $interface -t $target --map-lan -A -sV -p-
           fi
        else
               misc $cmd1          
@@ -161,7 +161,7 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
               bash ../print_help_modules.sh help
            fi        
         elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'run' ]] ; then
-           ./main.sh -i $interface -t $target --map-lan --script vuln -p $ports
+           bash main.sh -i $interface -t $target --map-lan --script vuln -p $ports
         elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == "set" ]] ; then
            if [[ $( echo $cmd1 | cut -d " " -f 2 ) == 'target' ]] ; then
               target=$( echo $cmd1 | cut -d " " -f 3- )
@@ -204,15 +204,15 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
         elif [[ $( echo $cmd1 | cut -d " " -f 1 ) == 'run' ]] ; then
            if [[ $silnet == "on" ]] ; then
               if [[ $check == "on" ]] ; then
-                 ./main.sh ./tornado.sh -i $interface -t $target -g $gateway -f --no-check --silent
+                 bash main.sh -i $interface -t $target -g $gateway -f --no-check --silent
               else
-                 ./main.sh ./tornado.sh -i $interface -t $target -g $gateway -f --silent
+                 bash main.sh -i $interface -t $target -g $gateway -f --silent
               fi
            else
               if [[ $check == "on" ]] ; then
-                 ./main.sh ./tornado.sh -i $interface -t $target -g $gateway -f --no-check
+                 bash main.sh ./tornado.sh -i $interface -t $target -g $gateway -f --no-check
               else
-                 ./main.sh ./tornado.sh -i $interface -t $target -g $gateway -f
+                 bash main.sh ./tornado.sh -i $interface -t $target -g $gateway -f
               fi
            fi
         else
@@ -301,12 +301,12 @@ while IFS= read -e -p "$( echo -e $white ; echo -e ${grayterm}{REBEL}➤[${white
             options=$( echo $options | tr '\n' ' ' )
            if [[ ${1} == "net/sniff" ]] ; then
               if [[ $dnsspoof != "off" ]] ; then 
-                 ./main.sh ./tornado.sh -i $interface -t $target -g $gateway $options $dnsspoof
+                 bash main.sh ./tornado.sh -i $interface -t $target -g $gateway $options $dnsspoof
               else
-                 ./main.sh ./tornado.sh -i $interface -t $target -g $gateway $options
+                 bash main.sh ./tornado.sh -i $interface -t $target -g $gateway $options
               fi
            else
-              ./main.sh ./tornado.sh -i $interface -t $target -g $gateway --hsts -o $ssllog $options
+              bash main.sh ./tornado.sh -i $interface -t $target -g $gateway --hsts -o $ssllog $options
            fi
        else
               misc $cmd1
