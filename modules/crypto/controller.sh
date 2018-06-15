@@ -47,6 +47,8 @@ if [[ $1 == "crypto/rot" ]] ; then
 elif [[ $1 == "crypto/find" ]] ; then
    target="example.txt"
    mode="all"
+elif [[ $1 == "crypto/mdr1" ]] ; then
+   target="encode me"   
 else   
    target="68656c6c6f20667269656e64"
 fi
