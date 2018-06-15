@@ -128,6 +128,7 @@ https://github.com/rebellionil/rebel-framework/issues
 - [ ] Add memory forensics modules
 - [ ] Add java and pyc decompilers
 - [ ] Make rebel scriptable and add command line arguments 
+- [ ] Add bruteforce modules
 
 ## DONATE
 | COIN | ADDRESS |
