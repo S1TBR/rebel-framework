@@ -25,7 +25,7 @@ bash rebel.sh
 - scan.py
 ```shell
 ┌─[root@parrot]─[~]
-└──╼ #bash scan.py -h
+└──╼ #python scan.py -h
 
 
      -h --help    print usage
