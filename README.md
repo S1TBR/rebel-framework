@@ -23,7 +23,7 @@ bash rebel.sh
 
 ## PORT YOUR OWN TOOLS TO REBEL !
 - scan.py
-```python
+```shell
 ┌─[root@parrot]─[~]
 └──╼ #bash scan.py -h
 
