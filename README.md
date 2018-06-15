@@ -22,6 +22,8 @@ bash rebel.sh
 
 [![asciicast](https://asciinema.org/a/OiKfx95E17Pjc389PZuTBitsa.png)](https://asciinema.org/a/OiKfx95E17Pjc389PZuTBitsa)
 
+[![asciicast](https://asciinema.org/a/9Kt0jMXR9gBLV3eCUMqZsbWzb.png)](https://asciinema.org/a/9Kt0jMXR9gBLV3eCUMqZsbWzb)
+
 ## SUPPORTED DISTRIBUTIONS
 |Distribution | Version Check | supported | dependencies already installed |status |
 ----------|-------|------|------|-------|
