@@ -22,7 +22,18 @@ bash rebel.sh
 |Parrot OS|4.14.0 |yes|yes|working   |
 
 ## PORT YOUR OWN TOOLS TO REBEL !
-### controller.sh sample
+- scan.py
+```python
+┌─[root@parrot]─[~]
+└──╼ #bash scan.py -h
+
+
+     -h --help    print usage
+     usage ./scan.py <target>
+
+```
+
+- controller.sh sample
 ```bash
 #!/bin/bash
 
