@@ -14,6 +14,8 @@ cd rebel-framework
 bash setup.sh
 bash rebel.sh
 ```
+## DEMO 
+[![asciicast](https://asciinema.org/a/hCkHKyb57TrnY0v85xRw53NGJ.png)](https://asciinema.org/a/hCkHKyb57TrnY0v85xRw53NGJ)
 
 ## SUPPORTED DISTRIBUTIONS
 |Distribution | Version Check | supported | dependencies already installed |status |
