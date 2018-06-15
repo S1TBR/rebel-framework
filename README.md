@@ -14,7 +14,10 @@ cd rebel-framework
 bash setup.sh
 bash rebel.sh
 ```
-## DEMO 
+## MODULES
+![screenshot at 2018-06-15 13-51-44](https://user-images.githubusercontent.com/22657154/41466679-488a6e48-7071-11e8-8ca4-763892f0759c.png)
+
+## DEMO
 [![asciicast](https://asciinema.org/a/hCkHKyb57TrnY0v85xRw53NGJ.png)](https://asciinema.org/a/hCkHKyb57TrnY0v85xRw53NGJ)
 
 [![asciicast](https://asciinema.org/a/OiKfx95E17Pjc389PZuTBitsa.png)](https://asciinema.org/a/OiKfx95E17Pjc389PZuTBitsa)
