@@ -24,7 +24,7 @@ bash rebel.sh
 
 ![screen3](https://user-images.githubusercontent.com/22657154/41472456-7972673c-7084-11e8-879b-d4ab3d4a8e0c.png)
 
-## DEMO
+## DEMOS
 [![asciicast](https://asciinema.org/a/hCkHKyb57TrnY0v85xRw53NGJ.png)](https://asciinema.org/a/hCkHKyb57TrnY0v85xRw53NGJ)
 
 [![asciicast](https://asciinema.org/a/OiKfx95E17Pjc389PZuTBitsa.png)](https://asciinema.org/a/OiKfx95E17Pjc389PZuTBitsa)
