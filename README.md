@@ -18,8 +18,6 @@ bash rebel.sh
 ![screenshot at 2018-06-15 13-51-44](https://user-images.githubusercontent.com/22657154/41466679-488a6e48-7071-11e8-8ca4-763892f0759c.png)
 
 ## SCREENSHOTS
-![screen1](https://user-images.githubusercontent.com/22657154/41472448-75ecf9b0-7084-11e8-8a0b-32134fd05daf.png)
-
 ![screen2](https://user-images.githubusercontent.com/22657154/41472454-781c73e6-7084-11e8-8057-be1a11bfd718.png)
 
 ![screen3](https://user-images.githubusercontent.com/22657154/41472456-7972673c-7084-11e8-879b-d4ab3d4a8e0c.png)
