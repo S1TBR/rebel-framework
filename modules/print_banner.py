@@ -20,10 +20,10 @@ banner0="""
 (_)_.'v|v|v|     / \#  \_ / '_  _'    . .     /_/ |_| \___//_.___/\___//_/
            | _ _/_/     /'./_-|"         . .
            /#_#__'''-._ /#  \__)       .  .     | Author    : Magdy Moustafa 'Rebellion'
-           |__   ''-._ |##               . . .  | Github    : @rebellionil
+           |__   ''-._ |##               . . .  | Github    : @rebe11ion
            |  ''|-'''-_/##              . .     | Twitter   : @rebellionil
            /''--\__.-|                       .  | Instagram : @re_be_ll_ion
-           \-_.-<__ /                   .   .   | Rebel     : github.com/rebellionil/rebel-framework
+           \-_.-<__ /                   .   .   | Rebel     : github.com/rebe11ion/rebel-framework
            /-_| /  \\
            \-_| \_-<.                        .  .
            <_-/ <_.-\                    .
@@ -57,10 +57,10 @@ banner1="""
      ___/ | \___    ██║  ██║███████╗██████╔╝███████╗███████╗
           |     \   ╚═╝  ╚═╝╚══════╝╚═════╝ ╚══════╝╚══════╝
           | Author    : Magdy Moustafa 'Rebellion'
-          | Github    : @rebellionil
+          | Github    : @rebe11ion
           | Twitter   : @rebellionil
           | Instagram : @re_be_ll_ion
-          | Rebel     : github.com/rebellionil/rebel-framework
+          | Rebel     : github.com/rebe11ion/rebel-framework
 """
 
 banner2="""
@@ -73,10 +73,10 @@ banner2="""
      `x____,.-",-~( .-"     MMMM   "W" ''''YUMMM""YUMMMP" ''''YUMMM''''YUMMM
          |        )               |
       _.-| ,^.-~ "\               | Author    : Magdy Moustafa 'Rebellion'
- __.-~_,-|/\/     `i              | Github    : @rebellionil
+ __.-~_,-|/\/     `i              | Github    : @rebe11ion
 / u.-~ .-{\/     .-^--.           | Twitter   : @rebellionil
 \/   v~ ,-^x.____}--r |           | Instagram : @re_be_ll_ion
-    / /"            | |           | Rebel     : github.com/rebellionil/rebel-framework
+    / /"            | |           | Rebel     : github.com/rebe11ion/rebel-framework
    /_/              !_l_
 o~_//)             (_\\_~o
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -92,10 +92,10 @@ banner3='''
                      .'  \\|     |//  `.
                     /  \\\|||  :  |||// \\
                    /  _||||| -:- |||||_ \         | Author    : Magdy Moustafa 'Rebellion'
-                   | \_|  `\`---'//  |_/ |        | Github    : @rebellionil
+                   | \_|  `\`---'//  |_/ |        | Github    : @rebe11ion
                    \  .-\__ `-. -'__/-.  /        | Twitter   : @rebellionil
                  ___`. .'  /--.--\  `. .'___      | Instagram : @re_be_ll_ion
-              ."" '<  `.___\_<|>_/___.' _> \"".    | Rebel     : github.com/rebellionil/rebel-framework
+              ."" '<  `.___\_<|>_/___.' _> \"".    | Rebel     : github.com/rebe11ion/rebel-framework
              | | :  `- \`. ;`. _/; .'/ /  .' ; |
              \  \ `-.   \_\_`. _.'_/_/  -' _.' /
    ===========`-.`___`-.__\ \___  /__.-'_.'_.-'================
@@ -132,10 +132,10 @@ banner4="""
                |  '-'  |                |  '-'      |
 |=============='       '================'           |
 | Author    : Magdy Moustafa 'Rebellion'     .-.    |
-| Github    : @rebellionil            .-.    '-'    |
+| Github    : @rebe11ion              .-.    '-'    |
 | Twitter   : @rebellionil    .-.     '-'           |
 | Instagram : @re_be_ll_ion   '-'                   |
-| Rebel     : github.com/rebellionil/rebel-framework
+| Rebel     : github.com/rebe11ion/rebel-framework
 
 """
 bannerarr= [banner0,banner1,banner2,banner3,banner4]
